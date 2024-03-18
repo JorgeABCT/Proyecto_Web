@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Plantilla</title>
+    </head>
+    <body>
+        <section th:fragment="listadoPlatillosR" id="platillos">
+            <div class="container">
+                <div class="row row-cols-2" >
+                    <h2 class="inline">Menu Regular</h2>
+                    <div id="resultsBlock"></div></div>
+                <div class="row row-cols-3" 
+                     th:if="${platillos != null and !platillos.empty}">
+                    <div class="card" th:each="platillo : ${platillos}">
+                        <div class="card-body">
+                            <h5 class="card-title">[[${platillo.nombre}]]</h5>
+                            <figure>
+                                <img th:src="@{${platillo.rutaImagen}}" height="200"/>
+                                <figcaption>[[${platillo.precio}]]</figcaption>
+                            </figure>
+                            <p class="card-text">[[${platillo.descripcion}]]</p>                            
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${platillos == null or platillos.empty}">
+                    No hay platillos disponibles en este momento</div>
+            </div>
+        </section>
+        
+        <section th:fragment="listadoPlatillosV" id="platillos">
+            <div class="container">
+                <div class="row row-cols-2" >
+                    <h2 class="inline">Menu Vegano</h2>
+                    <div id="resultsBlock"></div></div>
+                <div class="row row-cols-3" 
+                     th:if="${platillos != null and !platillos.empty}">
+                    <div class="card" th:each="platillo : ${platillos}">
+                        <div class="card-body">
+                            <h5 class="card-title">[[${platillo.nombre}]]</h5>
+                            <figure>
+                                <img th:src="@{${platillo.rutaImagen}}" height="200"/>
+                                <figcaption>[[${platillo.precio}]]</figcaption>
+                            </figure>
+                            <p class="card-text">[[${platillo.descripcion}]]</p>                            
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${platillos == null or platillos.empty}">
+                    No hay platillos disponibles en este momento</div>
+            </div>
+        </section>
+    </body>
+</html>
