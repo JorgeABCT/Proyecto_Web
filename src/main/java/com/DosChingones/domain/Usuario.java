@@ -30,4 +30,8 @@ public class Usuario implements Serializable{
     private String apellidos;
     private String correo;
     private boolean activo;
+    
+    @OneToMany
+    @JoinColumn(name="id_usuario")
+    private List<Rol> roles;
 }

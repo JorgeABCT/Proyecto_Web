@@ -61,6 +61,7 @@ public class UsuarioServiceImp implements UsuarioService {
     @Override
     @Transactional
     public void save(Usuario usuario, boolean crearRolUser) {
+        usuario.setActivo(true);
         usuario=usuarioDao.save(usuario);
         if (crearRolUser) {  //Si se está creando el usuario, se crea el rol por defecto "USER"
             Rol rol = new Rol();

@@ -8,6 +8,7 @@ import com.DosChingones.domain.Bebida;
 import com.DosChingones.domain.Platillo;
 import com.DosChingones.service.BebidaService;
 import com.DosChingones.service.CategoriaService;
+import com.DosChingones.service.ImagenService;
 import com.DosChingones.service.PlatilloService;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,9 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class IndexController {
+    
+    @Autowired
+    private ImagenService imagenService;
 
     @Autowired
     private PlatilloService platilloService;
@@ -46,8 +50,11 @@ public class IndexController {
                 }
             }
         }
+        
+        var imagen = imagenService.getLogo(true);
         model.addAttribute("categorias", categorias);
         model.addAttribute("platillos", lista);
+        model.addAttribute("imagen", imagen);
         return "/index";
     }
     
