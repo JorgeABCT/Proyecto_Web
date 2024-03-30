@@ -78,7 +78,6 @@ public class UsuarioServiceImp implements UsuarioService {
     }
 
     @Override
-    
     public void save(Usuario usuario) {
         usuarioDao.save(usuario);
     }
