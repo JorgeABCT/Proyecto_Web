@@ -18,6 +18,8 @@ public interface PlatilloService {
     
     //Se obtiene una Categoria segun el Id pasado por parametro
     public Platillo getPlatillo(Platillo platillo);
+    
+    public Platillo getPlatilloPorNombre(String nombre);
             
     //Se actualiza una categoria o se inserta una nueva... (Si no hay id es un insert)
     public void save(Platillo platillo);

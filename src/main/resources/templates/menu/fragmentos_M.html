@@ -56,58 +56,103 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
         </section>
 
-        <section th:fragment="listadoPlatillosR" id="platillos">
+        <section th:fragment="listadoPlatillos" id="platillos">
             <div class="container">
                 <div class="row row-cols-2" >
-                    <h2 class="inline">Menu Regular</h2>
-                    <div id="resultsBlock"></div></div>
+                    <h2 class="inline">[[${MenuNombre}]]</h2>
+                    <div id="resultsBlock"></div>
+                </div>
                 <div class="row row-cols-3" 
                      th:if="${platillos != null and !platillos.empty}">
-                        <div class="card" style="width: 22rem; margin: 1rem" th:each="platillo : ${platillos}">
-                            <br/>
-                            <img th:src="@{${platillo.rutaImagen}}" height="200" class="rounded"/>
-                                <div class="card-body">
-                                    <h5 class="card-title">[[${platillo.nombre}]]</h5>
-                                    <p class="card-text">[[${platillo.descripcion}]]</p>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><h2 class="text-center" style="">[[${platillo.precio}]]</h2></li>
-                                </ul>
-                                <div class="card-body text-center">
-                                    <a href="#" class="btn btn-danger">Agregar al carrito</a>
-                                </div>
+                    <div class="card" style="width: 22rem; margin: 1rem" th:each="platillo : ${platillos}">
+                        <br/>
+                        <a th:href="@{/platillo/}+${platillo.id_platillo}">
+                            <img th:src="@{${platillo.rutaImagen}}" height="200" width="326" class="rounded"/>
+                        </a>
+                        <div class="card-body">
+                            <a class="text-decoration-none text-black" th:href="@{/platillo/}+${platillo.id_platillo}">
+                                <h5 class="card-title">[[${platillo.nombre}]]</h5>
+                            </a>
+                            <p class="card-text">[[${platillo.descripcion}]]</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><h2 class="text-center" style="">[[${platillo.precio}]]</h2></li>
+                        </ul>
+                        <div class="card-body text-center" sec:authorize='isAuthenticated()'>
+                            <a href="#" class="btn btn-danger">Agregar al carrito</a>
+                        </div>
+                        <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
+                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
                         </div>
                     </div>
-                    <div th:if="${platillos == null or platillos.empty}">
-                        No hay platillos disponibles en este momento</div>
                 </div>
+                <div th:if="${platillos == null or platillos.empty}">
+                    No hay platillos disponibles en este momento
+                </div>
+            </div>
         </section>
-        
-        <section th:fragment="listadoPlatillosV" id="platillos">
+
+        <section th:fragment="listadoBebidas" id="bebidas">
             <div class="container">
                 <div class="row row-cols-2" >
-                    <h2 class="inline">Menu Vegano</h2>
-                    <div id="resultsBlock"></div></div>
+                    <h2 class="inline">Bebidas</h2>
+                    <div id="resultsBlock"></div>
+                </div>
                 <div class="row row-cols-3" 
-                     th:if="${platillos != null and !platillos.empty}">
-                        <div class="card" style="width: 22rem; margin: 1rem" th:each="platillo : ${platillos}">
-                            <br/>
-                            <img th:src="@{${platillo.rutaImagen}}" height="200" class="rounded"/>
-                                <div class="card-body">
-                                    <h5 class="card-title">[[${platillo.nombre}]]</h5>
-                                    <p class="card-text">[[${platillo.descripcion}]]</p>
-                                </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"><h2 class="text-center" style="">[[${platillo.precio}]]</h2></li>
-                                </ul>
-                                <div class="card-body text-center">
-                                    <a href="#" class="btn btn-danger">Agregar al carrito</a>
-                                </div>
+                     th:if="${bebidas != null and !bebidas.empty}">
+                    <div class="card" style="width: 22rem; margin: 1rem" th:each="bebida : ${bebidas}">
+                        <br/>
+                        <a th:href="@{/bebida/}+${bebida.id_bebida}">
+                            <img th:src="@{${bebida.rutaImagen}}" height="200" width="326" class="rounded"/>
+                        </a>
+                        <div class="card-body">
+                            <a class="text-decoration-none text-black" th:href="@{/bebida/}+${bebida.id_bebida}">
+                                <h5 class="card-title">[[${bebida.nombre}]]</h5>
+                            </a>
+                            <p class="card-text">[[${bebida.descripcion}]]</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><h2 class="text-center" style="">[[${bebida.precio}]]</h2></li>
+                        </ul>
+                        <div class="card-body text-center" sec:authorize='isAuthenticated()'>
+                            <a href="#" class="btn btn-danger">Agregar al carrito</a>
+                        </div>
+                        <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
+                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
                         </div>
                     </div>
-                    <div th:if="${platillos == null or platillos.empty}">
-                        No hay platillos disponibles en este momento</div>
                 </div>
+                <div th:if="${bebidas == null or bebidas.empty}">
+                    No hay platillos disponibles en este momento
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="Bebidas" id="bebidas">
+            <div class="container">
+                <div class="row row-cols-2" >
+                    <h2 class="inline">Bebidas Disponibles</h2>
+                    <div id="resultsBlock"></div></div>
+                <div class="row row-cols-3" 
+                     th:if="${bebidas != null and !bebidas.empty}">
+                    <div class="card" style="width: 22rem; margin: 1rem" th:each="bebida : ${bebidas}">
+                        <br/>
+                        <img th:src="@{${bebida.rutaImagen}}" height="200" class="rounded"/>
+                        <div class="card-body">
+                            <h5 class="card-title">[[${bebida.nombre}]]</h5>
+                            <p class="card-text">[[${bebida.descripcion}]]</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><h2 class="text-center" style="">[[${bebida.precio}]]</h2></li>
+                        </ul>
+                        <div class="card-body text-center">
+                            <a href="#" class="btn btn-danger">Agregar al carrito</a>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${bebidas == null or bebidas.empty}">
+                    No hay platillos disponibles en este momento</div>
+            </div>
         </section>
     </body>
 </html>

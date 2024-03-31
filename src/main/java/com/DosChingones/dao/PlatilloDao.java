@@ -13,4 +13,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PlatilloDao extends JpaRepository<Platillo, Long>{
     
+    public Platillo findByNombre(String nombre);
+    
 }

@@ -35,6 +35,7 @@ public class PlatilloServiceImp implements PlatilloService{
     }
     
     //Se obtiene una Platillo segun el Id pasado por parametro
+    @Override
     @Transactional(readOnly=true)
     public Platillo getPlatillo(Platillo platillo) {
         return platilloDao.findById(platillo.getId_platillo()).orElse(null);  
@@ -48,5 +49,11 @@ public class PlatilloServiceImp implements PlatilloService{
     //Se elimina una platillo segun el id pasado
     public void delete(Platillo platillo) {
         platilloDao.delete(platillo);
+    }
+
+    @Override
+    @Transactional(readOnly=true)
+    public Platillo getPlatilloPorNombre(String nombre) {
+        return platilloDao.findByNombre(nombre);
     }
 }

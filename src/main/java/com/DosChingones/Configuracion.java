@@ -33,10 +33,11 @@ public class Configuracion implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((request) -> request
-                .requestMatchers("/", "/index",
+                .requestMatchers("/**", "/index",
                         "/menu/**",
                         "/registro/**",
                         "/js/**",
+                        "/css/**",
                         "/webjars/**", 
                         "/cuenta/nuevo",
                         "/menu_regular",
@@ -56,7 +57,7 @@ public class Configuracion implements WebMvcConfigurer {
                         "/categoria/listado",
                         "/usuario/listado"
                 ).hasAnyRole("ADMIN", "EMPLEADO")
-                .requestMatchers("/facturar/carrito", "/cuenta/modifica", "cuenta/guardar")
+                .requestMatchers("/facturar/carrito", "/cuenta/modifica", "/cuenta/guardar", "/platillo/**")
                 .hasRole("USER")
         )
                 .formLogin((form) -> form

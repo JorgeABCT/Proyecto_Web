@@ -9,6 +9,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <head th:fragment="head">
         <title>Plantilla</title>
         <meta charset="UTF-8"/>
+        <link rel="icon" type="image/x-icon" href="https://firebasestorage.googleapis.com/v0/b/dos-chingones-b1e2a.appspot.com/o/Favicon_DosChingones.png?alt=media&token=99200eaa-65b6-4e9b-b732-da7ea4ba9b26"/>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
         <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
         <link th:href="@{/webjars/font-awesome/css/all.min.css}" rel="stylesheet"/>
@@ -57,6 +58,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <a th:href="@{/cuenta/nuevo}"><button type="button" class="btn btn-danger">Crear Cuenta</button></a>
                 </div>
                 <div class="col-md-1 text-center" sec:authorize='isAuthenticated()'>
+                    <a class="text-decoration-none text-danger" th:href="@{/carrito}"><i class="bi bi-cart-fill"></i> Carrito</a>
                 </div>
                 <div class="col-md-1 text-center" sec:authorize='isAuthenticated()'>
                         <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -77,11 +79,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <br>
                 <footer class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between border-top">
                     <div class="container text-center text-md-start mt-3">
-                        <!-- Grid row -->
                         <div class="row mt-3">
-                            <!-- Grid column -->
+                            <!-- Columna de la izquierda donde explica el restaurante -->
                             <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                                <!-- Content -->
                                 <h6 class="text-uppercase fw-bold mb-4">
                                     <i class="fas fa-pepper-hot me-3"></i>Dos Chingones
                                 </h6>
@@ -91,9 +91,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     la cuidadosa selección de ingredientes frescos.
                                 </p>
                             </div>
-                            <!-- Grid column -->
+                            <!-- Columna de la derecha -->
                             <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                                <!-- Links -->
+                                <!-- Politicas y esas cosas -->
                                 <h6 class="text-uppercase fw-bold mb-4">
                                     Legal
                                 </h6>
@@ -104,36 +104,28 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     <a href="#!" class="text-reset text-decoration-none">Políticas de privacidad</a>
                                 </p>
                             </div>
-                            <!-- Grid column -->
-
-                            <!-- Grid column -->
                             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                                 <!-- Links -->
                                 <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
-                                <a href="https://www.facebook.com/2chingones/" class="mb-3 text-decoration-none link-dark">
+                                <a href="https://www.facebook.com/2chingones/" class="mb-3 text-decoration-none link-dark" target=”_blank”>
                                     <p><i class="fab fa-facebook-f"></i> Facebook </p>
                                 </a>
-                                <a href="https://www.instagram.com/2chin_gones/" class="mb-3 text-decoration-none link-dark">
+                                <a href="https://www.instagram.com/2chin_gones/" class="mb-3 text-decoration-none link-dark" target=”_blank”>
                                     <p><i class="fab fa-instagram"></i> Instagram </p>
                                 </a>
                                 <a href="https://api.whatsapp.com/send?phone=%2B50672930820&data=ARC6JZ0exqwdvvHXbrOZWSdPr-z6eLBXhgQaZjjnBtumwQMF2qdAxZgv5gEy_Sah3I2oSbQuNmd6cufFEJTe2L4Q98n73dhOBm5EGoGE9l3uY7GbKPrJM7mw2JPau8zq19GrpkLKsPiUOpTboCJKC1kVqw" 
-                                   class="mb-3 text-decoration-none link-dark">
+                                   class="mb-3 text-decoration-none link-dark" target=”_blank”>
                                     <p><i class="fab fa-whatsapp"></i> Contactenos </p>
                                 </a>
-                                <a href="https://maps.app.goo.gl/yA5XDMmnaPrUzmYu9" class="mb-3 text-decoration-none link-dark">
+                                <a href="https://maps.app.goo.gl/yA5XDMmnaPrUzmYu9" class="mb-3 text-decoration-none link-dark" target=”_blank”>
                                     <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                                             <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
                                         </svg> Dirección </p>
                                 </a>
                             </div>
-                            <!-- Grid column -->
-
-                            <!-- Grid column -->
                             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                             </div>
-                            <!-- Grid column -->
                         </div>
-                        <!-- Grid row -->
                     </div>
                 </footer>
         </section>

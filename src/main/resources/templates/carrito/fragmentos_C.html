@@ -13,7 +13,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <section th:fragment="listadoPlatillos" id="platillos">
             <div class="container">
                 <div class="row row-cols-2" >
-                    <h2 class="inline">Platillos Disponibles</h2>
+                    <h2 class="inline">Carrito de Compras</h2>
                     <div id="resultsBlock"></div></div>
                 <div class="row row-cols-3" 
                      th:if="${platillos != null and !platillos.empty}">
@@ -37,6 +37,57 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
                 <div th:if="${platillos == null or platillos.empty}">
                     No hay platillos disponibles en este momento</div>
+            </div>
+        </section>
+
+        <section class="container sproduct my-5 pt-5" th:fragment="VerPlatillo" id="platillo">
+            <div class="row">
+                <div class="col-lg-5 col-md-12 col-12">
+                    <img th:src="@{${platillo.rutaImagen}}" class="rounded img-fluid w-100" alt="[[${platillo.nombre}]]"/>
+                </div>
+                <div class="col-lg-6 col-md-12 col-12">
+                    <h1>[[${platillo.nombre}]]</h1>
+                    <h4>[[${platillo.categoria.nombre}]]</h4>
+                    <h2>₡[[${platillo.precio}]]</h2>
+                    <h6 class="text-justify">[[${platillo.descripcion}]]</h6>
+                    <form>
+                        <h4>¿Quiere hacer algún cambio?</h4>
+                        <textarea class="form-control" name="CambiosPlatillo" rows="2" style="resize: none"> </textarea>
+                        <br/>
+                        <button type="submit" class="btn btn-danger btn-block btn-lg text-light d-flex justify-content-center">
+                            Agregar al carrito
+                        </button>
+                    </form>
+                </div>
+                <div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="container sproduct my-5 pt-5" th:fragment="VerBebida" id="bebida">
+            <div class="row">
+                <div class="col-lg-5 col-md-12 col-12">
+                    <img th:src="@{${bebida.rutaImagen}}" class="rounded img-fluid w-100" alt="[[${bebida.nombre}]]"/>
+                </div>
+                <div class="col-lg-6 col-md-12 col-12">
+                    <h1>[[${bebida.nombre}]]</h1>
+                    <h2>₡[[${bebida.precio}]]</h2>
+                    <h6 class="text-justify">[[${bebida.descripcion}]]</h6>
+                    <br/>
+                    <h4>¿Tiene alcohol? </h4><h4 th:text="${bebida.alcohol} ? 'Si' : 'No'"/>
+                    <h4>¿Es natural?</h4><h4 th:text="${bebida.naturales} ? 'Si' : 'No'"/>
+                    <br/>
+                    <form>
+                        <h4>¿Quiere hacer algún cambio?</h4>
+                        <textarea class="form-control" name="CambiosPlatillo" rows="2" style="resize: none"> </textarea>
+                        <br/>
+                        <button type="submit" class="btn btn-danger btn-block btn-lg text-light d-flex justify-content-center">
+                            Agregar al carrito
+                        </button>
+                    </form>
+                </div>
+                <div>
+                </div>
             </div>
         </section>
     </body>

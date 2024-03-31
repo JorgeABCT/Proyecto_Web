@@ -23,16 +23,16 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class IndexController {
-    
+
     @Autowired
     private ImagenService imagenService;
 
     @Autowired
     private PlatilloService platilloService;
-    
+
     @Autowired
     private CategoriaService categoriaService;
-    
+
     @Autowired
     private BebidaService bebidaService;
 
@@ -41,58 +41,62 @@ public class IndexController {
         var platillos = platilloService.getPlatillos(true);
         var categorias = categoriaService.getCategorias(true);
         List<Platillo> lista = new ArrayList<Platillo>();
-        
+
         for (int i = 1; i < categorias.size(); i++) {
             for (int j = 0; j < platillos.size(); j++) {
                 Platillo plato = platillos.get(j);
-                if (plato.getCategoria().getIdCategoria()==i) {
+                if (plato.getCategoria().getIdCategoria() == i) {
                     lista.add(platillos.get(j));
                 }
             }
         }
-        
+
         var imagen = imagenService.getLogo(true);
         model.addAttribute("categorias", categorias);
         model.addAttribute("platillos", lista);
         model.addAttribute("imagen", imagen);
         return "/index";
     }
-    
+
     @GetMapping("/menu_regular")
     private String Menu_regular(Model model) {
         var platillos = platilloService.getPlatillos(true);
         List<Platillo> lista = new ArrayList<Platillo>();
-        
-            for (int j = 0; j < platillos.size(); j++) {
-                Platillo plato = platillos.get(j);
-                if(!plato.isVegano() && plato.isActivo()){
-                    lista.add(plato);
-                }
+
+        for (int j = 0; j < platillos.size(); j++) {
+            Platillo plato = platillos.get(j);
+            if (!plato.isVegano() && plato.isActivo()) {
+                lista.add(plato);
             }
+        }
+        String MenuNombre = "Menu Regular";
+        model.addAttribute("MenuNombre", MenuNombre);
         model.addAttribute("platillos", lista);
-        return "/menu/menu_R";
+        return "/menu/menu";
     }
-    
+
     @GetMapping("/menu_vegano")
     private String Menu_vegano(Model model) {
         var platillos = platilloService.getPlatillos(true);
         List<Platillo> lista = new ArrayList<Platillo>();
-        
-            for (int j = 0; j < platillos.size(); j++) {
-                Platillo plato = platillos.get(j);
-                if(plato.isVegano() && plato.isActivo()){
-                    lista.add(plato);
-                }
+
+        for (int j = 0; j < platillos.size(); j++) {
+            Platillo plato = platillos.get(j);
+            if (plato.isVegano() && plato.isActivo()) {
+                lista.add(plato);
             }
+        }
+        String MenuNombre = "Menu Vegano";
         model.addAttribute("platillos", lista);
-        return "/menu/menu_V";
+        model.addAttribute("MenuNombre", MenuNombre);
+        return "/menu/menu";
     }
-    
+
     @GetMapping("/bebidas")
     private String bebidas(Model model) {
         var bebidas = bebidaService.getBebidas(true);
-        
-        model.addAttribute("platillos", bebidas);
+
+        model.addAttribute("bebidas", bebidas);
         return "/menu/bebidas";
     }
 }
