@@ -6,16 +6,23 @@ package com.DosChingones.controller;
 
 import com.DosChingones.domain.Bebida;
 import com.DosChingones.domain.Platillo;
+import com.DosChingones.domain.Usuario;
 import com.DosChingones.service.BebidaService;
 import com.DosChingones.service.CategoriaService;
 import com.DosChingones.service.ImagenService;
 import com.DosChingones.service.PlatilloService;
+import com.DosChingones.service.UsuarioService;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
@@ -23,6 +30,11 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 public class IndexController {
+
+    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Autowired
     private ImagenService imagenService;
@@ -98,5 +110,26 @@ public class IndexController {
 
         model.addAttribute("bebidas", bebidas);
         return "/menu/bebidas";
+    }
+    
+    @GetMapping("/login")
+    public String Login(Model model, Usuario usuario){
+        model.addAttribute("usuario", usuario);
+        return "/usuario/inicioU";
+    }
+
+    @PostMapping("/login")
+    public String confirmarLogin(Model model, Usuario usuario) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && auth.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) auth.getPrincipal();
+            Usuario usuarioU = usuarioService.getUsuarioPorUsername(userDetails.getUsername());
+            if (usuarioU.isActivo()) {
+                return "redirect:/";
+            }
+            return "redirect:/login";
+        } else {
+            return "redirect:/login";
+        }
     }
 }

@@ -40,7 +40,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
         </section>
 
-        <section class="container sproduct my-5 pt-5" th:fragment="VerPlatillo" id="platillo">
+        <section class="container my-5 pt-5" th:fragment="VerPlatillo" id="platillo">
             <div class="row">
                 <div class="col-lg-5 col-md-12 col-12">
                     <img th:src="@{${platillo.rutaImagen}}" class="rounded img-fluid w-100" alt="[[${platillo.nombre}]]"/>
@@ -64,7 +64,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
         </section>
         
-        <section class="container sproduct my-5 pt-5" th:fragment="VerBebida" id="bebida">
+        <section class="container my-5 pt-5" th:fragment="VerBebida" id="bebida">
             <div class="row">
                 <div class="col-lg-5 col-md-12 col-12">
                     <img th:src="@{${bebida.rutaImagen}}" class="rounded img-fluid w-100" alt="[[${bebida.nombre}]]"/>
@@ -78,8 +78,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <h4>¿Es natural?</h4><h4 th:text="${bebida.naturales} ? 'Si' : 'No'"/>
                     <br/>
                     <form>
-                        <h4>¿Quiere hacer algún cambio?</h4>
-                        <textarea class="form-control" name="CambiosPlatillo" rows="2" style="resize: none"> </textarea>
                         <br/>
                         <button type="submit" class="btn btn-danger btn-block btn-lg text-light d-flex justify-content-center">
                             Agregar al carrito
