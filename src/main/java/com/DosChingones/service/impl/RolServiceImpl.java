@@ -35,5 +35,15 @@ public class RolServiceImpl implements RolService{
     public List<Rol> getRoles() {
         return rolDao.findAll();
     }
+
+    @Override
+    public Rol getRol(Rol rol) {
+        return rolDao.findById(rol.getIdRol()).orElse(null);
+    }
+
+    @Override
+    public Rol getRolPorID(Long id) {
+        return rolDao.findById(id).orElse(null);
+    }
     
 }

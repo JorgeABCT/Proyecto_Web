@@ -6,6 +6,7 @@ package com.DosChingones.controller;
 
 import com.DosChingones.domain.Categoria;
 import com.DosChingones.domain.Platillo;
+import com.DosChingones.domain.Rol;
 import com.DosChingones.domain.Usuario;
 import com.DosChingones.service.BebidaService;
 import com.DosChingones.service.CategoriaService;
@@ -22,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,7 +54,7 @@ public class AdminController {
 
     @Autowired
     private RolService rolService;
-    
+
     @Autowired
     private FirebaseStorageService firebaseService;
 
@@ -99,16 +101,15 @@ public class AdminController {
 
     @PostMapping("/platillo/guardar")
     public String guardarPlatillo(Platillo platillo, @RequestParam("imagenFile") MultipartFile imagenFile) {
-        
-        if(!imagenFile.isEmpty()) {
+
+        if (!imagenFile.isEmpty()) {
             platilloService.save(platillo);
-            String ruta=firebaseService.cargaImagen(imagenFile, "producto", platillo.getId_platillo());
+            String ruta = firebaseService.cargaImagen(imagenFile, "producto", platillo.getId_platillo());
             platillo.setRutaImagen(ruta);
         }
         platilloService.save(platillo);
         return "redirect:/admin/listadoPlatillos";
     }
-    
 
     @GetMapping("/platillo/modificar/{id_platillo}")
     public String modificarPlatillo(Platillo platillo, Model model) {
@@ -118,12 +119,14 @@ public class AdminController {
         model.addAttribute("categorias", categorias);
         return "/admin/modificarPlatillo";
     }
-    
+
     @GetMapping("/listadoUsuarios")
     private String listadoUsuarios(Model model, Usuario usuarioU) {
         var usuarios = usuarioService.getUsuarios();
+        var roles = rolService.getRoles();
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("usuario", new Usuario());
+        model.addAttribute("roles", roles);
         return "/admin/listadoUsuarios";
     }
 
@@ -146,12 +149,28 @@ public class AdminController {
             return "/admin/listadoUsuarios";
         }
     }
-    
 
     @GetMapping("/usuario/modificar/{id_usuario}")
     public String modificarUsuario(Usuario usuario, Model model) {
         usuario = usuarioService.getUsuario(usuario);
         model.addAttribute("usuario", usuario);
         return "/admin/modificarUsuario";
+    }
+
+    @PostMapping("/rol/guardar")
+    public String guardarRol(@RequestParam("usuario.id") Long usuarioId, @RequestParam("RolesDisponibles") String rolSeleccionado) {
+        System.out.println("ID del usuario seleccionado: " + usuarioId);
+        System.out.println("Rol seleccionado: " + rolSeleccionado);
+        var roles = rolService.getRoles();
+        Rol rol = new Rol(Long.valueOf(roles.size()+1), "ROLE_"+rolSeleccionado, usuarioId);
+        rolService.save(rol);
+        return "redirect:/admin/listadoUsuarios";
+    }
+    
+    @GetMapping("/rol/eliminar/{idRol}")
+    public String eliminarRol(Rol rol) {
+        rol = rolService.getRol(rol);
+        rolService.delete(rol);
+        return "redirect:/admin/listadoUsuarios";
     }
 }
