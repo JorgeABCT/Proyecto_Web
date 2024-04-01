@@ -6,6 +6,7 @@ package com.DosChingones.controller;
 
 import com.DosChingones.domain.Categoria;
 import com.DosChingones.domain.Platillo;
+import com.DosChingones.domain.Usuario;
 import com.DosChingones.service.BebidaService;
 import com.DosChingones.service.CategoriaService;
 import com.DosChingones.service.FirebaseStorageService;
@@ -15,9 +16,12 @@ import com.DosChingones.service.RolService;
 import com.DosChingones.service.UsuarioService;
 import com.google.firebase.internal.FirebaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -90,7 +94,7 @@ public class AdminController {
     @GetMapping("/platillo/eliminar/{id_platillo}")
     public String eliminarPlatillo(Platillo platillo) {
         platilloService.delete(platillo);
-        return "redirect:/admin/listadoCategorias";
+        return "redirect:/admin/listadoPlatillos";
     }
 
     @PostMapping("/platillo/guardar")
@@ -113,5 +117,41 @@ public class AdminController {
         model.addAttribute("platillo", platillo);
         model.addAttribute("categorias", categorias);
         return "/admin/modificarPlatillo";
+    }
+    
+    @GetMapping("/listadoUsuarios")
+    private String listadoUsuarios(Model model, Usuario usuarioU) {
+        var usuarios = usuarioService.getUsuarios();
+        model.addAttribute("usuarios", usuarios);
+        model.addAttribute("usuario", new Usuario());
+        return "/admin/listadoUsuarios";
+    }
+
+    @GetMapping("/usuario/eliminar/{id_usuario}")
+    public String eliminarUsuario(Usuario usuario) {
+        usuarioService.delete(usuario);
+        return "redirect:/admin/listadoUsuarios";
+    }
+
+    @PostMapping("/usuario/guardar")
+    public String guardarUsuario(@ModelAttribute("usuario") Usuario usuario, BindingResult bindingResult, Model model) {
+        var codigo = new BCryptPasswordEncoder();
+        usuario.setPassword(codigo.encode(usuario.getPassword()));
+        Usuario usuarioComprobar = usuarioService.getUsuarioPorUsernameOCorreo(usuario.getUsername(), usuario.getCorreo());
+        if (usuarioComprobar == null) {
+            usuarioService.save(usuario, true);
+            return "redirect:/admin/listadoUsuarios";
+        } else {
+            bindingResult.reject("error.crear", "Ya existe un usuario con este nombre, o correo ya vinculado a una cuenta.");
+            return "/admin/listadoUsuarios";
+        }
+    }
+    
+
+    @GetMapping("/usuario/modificar/{id_usuario}")
+    public String modificarUsuario(Usuario usuario, Model model) {
+        usuario = usuarioService.getUsuario(usuario);
+        model.addAttribute("usuario", usuario);
+        return "/admin/modificarUsuario";
     }
 }
