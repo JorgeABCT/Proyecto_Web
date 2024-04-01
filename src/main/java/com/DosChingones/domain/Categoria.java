@@ -25,6 +25,5 @@ public class Categoria implements Serializable{
     @Column (name="id_categoria")
     private Long idCategoria;
     private String nombre;
-    private String rutaImagen;
     private Boolean activo;
 }

@@ -46,10 +46,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{/menu_regular}">Cambio de Imagen</a></li>
-                            <li><a class="dropdown-item" th:href="@{/menu_regular}">Ver Usuarios</a></li>
-                            <li><a class="dropdown-item" th:href="@{/menu_vegano}">Ver Categorias</a></li>
-                            <li><a class="dropdown-item" th:href="@{/bebidas}">Ver Productos</a></li>
-                            <li><a class="dropdown-item" th:href="@{/bebidas}">Ver Pedidos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/admin/listadoUsuarios}">Ver Usuarios</a></li>
+                            <li><a class="dropdown-item" th:href="@{/admin/listadoCategorias}">Ver Categorias</a></li>
+                            <li><a class="dropdown-item" th:href="@{/admin/listadoPlatillos}">Ver Platillos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/admin/listadoPedidos}">Ver Pedidos</a></li>
                         </ul>
                     </li>
                 </ul>
