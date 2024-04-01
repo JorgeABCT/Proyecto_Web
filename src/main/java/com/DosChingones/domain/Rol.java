@@ -9,6 +9,11 @@ import lombok.Data;
 @Entity
 @Table(name="rol")
 public class Rol implements Serializable{
+
+    public Rol(String nombre, Long idUsuario) {
+        this.nombre = nombre;
+        this.idUsuario = idUsuario;
+    }
     
     private static final Long serialVersionUID= 1L;
 
@@ -29,4 +34,11 @@ public class Rol implements Serializable{
     @Column (name = "id_usuario")
     private Long idUsuario;
     
+    public void setNombre(String role_user) {
+        this.nombre = role_user;
+    }
+
+    public void setIdUsuario(Long id_usuario) {
+        this.idUsuario = id_usuario;
+    }
 }

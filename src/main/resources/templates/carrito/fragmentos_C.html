@@ -50,7 +50,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <h4>[[${platillo.categoria.nombre}]]</h4>
                     <h2>₡[[${platillo.precio}]]</h2>
                     <h6 class="text-justify">[[${platillo.descripcion}]]</h6>
-                    <form>
+                    <br/>
+                    <form sec:authorize='isAuthenticated()'>
                         <h4>¿Quiere hacer algún cambio?</h4>
                         <textarea class="form-control" name="CambiosPlatillo" rows="2" style="resize: none"> </textarea>
                         <br/>
@@ -58,12 +59,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             Agregar al carrito
                         </button>
                     </form>
+                    <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
+                        <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
+                    </div>
                 </div>
                 <div>
                 </div>
             </div>
         </section>
-        
+
         <section class="container my-5 pt-5" th:fragment="VerBebida" id="bebida">
             <div class="row">
                 <div class="col-lg-5 col-md-12 col-12">
@@ -77,12 +81,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <h4>¿Tiene alcohol? </h4><h4 th:text="${bebida.alcohol} ? 'Si' : 'No'"/>
                     <h4>¿Es natural?</h4><h4 th:text="${bebida.naturales} ? 'Si' : 'No'"/>
                     <br/>
-                    <form>
+                    <form sec:authorize='isAuthenticated()'>
                         <br/>
                         <button type="submit" class="btn btn-danger btn-block btn-lg text-light d-flex justify-content-center">
                             Agregar al carrito
                         </button>
                     </form>
+                    <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
+                        <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
+                    </div>
                 </div>
                 <div>
                 </div>

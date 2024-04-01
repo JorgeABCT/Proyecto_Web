@@ -150,6 +150,14 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/usuario/actualizar")
+    public String actualizarUsuario(@ModelAttribute("usuario") Usuario usuario, BindingResult bindingResult, Model model) {
+        var codigo = new BCryptPasswordEncoder();
+        usuario.setPassword(codigo.encode(usuario.getPassword()));
+        usuarioService.save(usuario);
+        return "redirect:/admin/listadoUsuarios";
+    }
+
     @GetMapping("/usuario/modificar/{id_usuario}")
     public String modificarUsuario(Usuario usuario, Model model) {
         usuario = usuarioService.getUsuario(usuario);
@@ -162,11 +170,11 @@ public class AdminController {
         System.out.println("ID del usuario seleccionado: " + usuarioId);
         System.out.println("Rol seleccionado: " + rolSeleccionado);
         var roles = rolService.getRoles();
-        Rol rol = new Rol(Long.valueOf(roles.size()+1), "ROLE_"+rolSeleccionado, usuarioId);
+        Rol rol = new Rol("ROLE_" + rolSeleccionado, usuarioId);
         rolService.save(rol);
         return "redirect:/admin/listadoUsuarios";
     }
-    
+
     @GetMapping("/rol/eliminar/{idRol}")
     public String eliminarRol(Rol rol) {
         rol = rolService.getRol(rol);
