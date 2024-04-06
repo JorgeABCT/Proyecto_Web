@@ -83,8 +83,22 @@ public class CuentaController {
             return "redirect:/";
         } else {
             bindingResult.reject("error.crear", "Ya existe un usuario con este nombre, o correo ya vinculado a una cuenta.");
-
             return "/usuario/nuevoU";
+        }
+    }
+    
+    @GetMapping("/eliminar")
+    public String desactivarCuenta(Model model, HttpServletRequest request) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && auth.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) auth.getPrincipal();
+            Usuario usuario = usuarioService.getUsuarioPorUsername(userDetails.getUsername());
+            usuario.setActivo(false);
+            request.getSession().invalidate();
+            usuarioService.save(usuario);
+            return "redirect:/login";
+        } else {
+            return "redirect:/login";
         }
     }
 
