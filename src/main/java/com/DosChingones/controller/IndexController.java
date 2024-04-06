@@ -77,7 +77,7 @@ public class IndexController {
 
         for (int j = 0; j < platillos.size(); j++) {
             Platillo plato = platillos.get(j);
-            if (!plato.isVegano() && plato.isActivo()) {
+            if (!plato.isVegano() && plato.isActivo() && !plato.getCategoria().getNombre().equals("Bebidas")) {
                 lista.add(plato);
             }
         }
@@ -94,7 +94,7 @@ public class IndexController {
 
         for (int j = 0; j < platillos.size(); j++) {
             Platillo plato = platillos.get(j);
-            if (plato.isVegano() && plato.isActivo()) {
+            if (plato.isVegano() && plato.isActivo() && !plato.getCategoria().getNombre().equals("Bebidas")) {
                 lista.add(plato);
             }
         }
@@ -106,9 +106,18 @@ public class IndexController {
 
     @GetMapping("/bebidas")
     private String bebidas(Model model) {
-        var bebidas = bebidaService.getBebidas(true);
+        var platillos = platilloService.getPlatillos(true);
+        List<Platillo> lista = new ArrayList<Platillo>();
 
-        model.addAttribute("bebidas", bebidas);
+        for (int j = 0; j < platillos.size(); j++) {
+            Platillo plato = platillos.get(j);
+            if (plato.isActivo() && plato.getCategoria().getNombre().equals("Bebidas")) {
+                lista.add(plato);
+            }
+        }
+        String MenuNombre = "Bebidas";
+        model.addAttribute("platillos", lista);
+        model.addAttribute("MenuNombre", MenuNombre);
         return "/menu/bebidas";
     }
     

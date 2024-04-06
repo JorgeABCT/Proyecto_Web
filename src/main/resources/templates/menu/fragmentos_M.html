@@ -67,7 +67,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="card" style="width: 22rem; margin: 1rem" th:each="platillo : ${platillos}">
                         <br/>
                         <a th:href="@{/platillo/}+${platillo.id_platillo}">
-                            <img th:src="@{${platillo.rutaImagen}}" height="200" width="326" class="rounded"/>
+                            <div class="d-flex justify-content-center">
+                                <img th:src="@{${platillo.rutaImagen}}" height="200" width="326" class="rounded"/>
+                            </div>
                         </a>
                         <div class="card-body">
                             <a class="text-decoration-none text-black" th:href="@{/platillo/}+${platillo.id_platillo}">
@@ -92,7 +94,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
         </section>
 
-        <section th:fragment="listadoBebidas" id="bebidas">
+        <section th:fragment="listadoBebida" id="bebidas">
             <div class="container">
                 <div class="row row-cols-2" >
                     <h2 class="inline">Bebidas</h2>
@@ -123,6 +125,42 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </div>
                 </div>
                 <div th:if="${bebidas == null or bebidas.empty}">
+                    No hay platillos disponibles en este momento
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="listadoBebidas" id="platillos">
+            <div class="container">
+                <div class="row row-cols-2" >
+                    <h2 class="inline">[[${MenuNombre}]]</h2>
+                    <div id="resultsBlock"></div>
+                </div>
+                <div class="row row-cols-3" 
+                     th:if="${platillos != null and !platillos.empty}">
+                    <div class="card" style="width: 22rem; margin: 1rem" th:each="platillo : ${platillos}">
+                        <br/>
+                        <a th:href="@{/platillo/}+${platillo.id_platillo}">
+                            <img th:src="@{${platillo.rutaImagen}}" height="200" width="326" class="rounded"/>
+                        </a>
+                        <div class="card-body">
+                            <a class="text-decoration-none text-black" th:href="@{/platillo/}+${platillo.id_platillo}">
+                                <h5 class="card-title">[[${platillo.nombre}]]</h5>
+                            </a>
+                            <p class="card-text">[[${platillo.descripcion}]]</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><h2 class="text-center" style="">[[${platillo.precio}]]</h2></li>
+                        </ul>
+                        <div class="card-body text-center" sec:authorize='isAuthenticated()'>
+                            <a href="#" class="btn btn-danger">Agregar al carrito</a>
+                        </div>
+                        <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
+                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${platillos == null or platillos.empty}">
                     No hay platillos disponibles en este momento
                 </div>
             </div>
