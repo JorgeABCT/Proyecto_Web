@@ -401,7 +401,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                             <th>Usuario</th>
                                             <th>Correo</th>
                                             <th>¿Este usuario está activo?</th>
-                                            <th sec:authorize='hasRole("ROLE_ADMIN")'></th>
+                                            <th sec:authorize='hasRole("ROLE_ADMIN")'>Opciones para Usuario</th>
                                             <th></th></tr>
                                     </thead>
                                     <tbody>
@@ -591,14 +591,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                         <tr><th>#</th>
                                             <th>Rol</th>
                                             <th>Usuario</th>
-                                            <th sec:authorize='hasRole("ROLE_ADMIN")'></th>
-                                            <th></th></tr>
+                                            <th sec:authorize='hasRole("ROLE_ADMIN")'>Eliminar Rol</th></tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="rol, contador : ${roles}">
                                             <td>[[${contador.count}]]</td>
                                             <td>[[${rol.nombre}]]</td>
-                                            <td>[[${rol.idUsuario}]]</td>
+                                            <td th:text="${rol.usuario != null ? rol.usuario.nombre : 'Sin usuario'}"></td>
                                             <td sec:authorize='hasRole("ROLE_ADMIN")'>
                                                 <a th:href="@{/admin/rol/eliminar/}+${rol.idRol}"
                                                    class="btn btn-danger">

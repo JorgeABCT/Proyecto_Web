@@ -170,7 +170,10 @@ public class AdminController {
         System.out.println("ID del usuario seleccionado: " + usuarioId);
         System.out.println("Rol seleccionado: " + rolSeleccionado);
         var roles = rolService.getRoles();
-        Rol rol = new Rol("ROLE_" + rolSeleccionado, usuarioId);
+        Rol rol = new Rol();
+        rol.setNombre("ROLE_" + rolSeleccionado);
+        Usuario usuario = usuarioService.getUsuarioPorID(usuarioId);
+        rol.setUsuario(usuario);
         rolService.save(rol);
         return "redirect:/admin/listadoUsuarios";
     }

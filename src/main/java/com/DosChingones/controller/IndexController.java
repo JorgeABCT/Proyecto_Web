@@ -67,6 +67,7 @@ public class IndexController {
         model.addAttribute("categorias", categorias);
         model.addAttribute("platillos", lista);
         model.addAttribute("imagen", imagen);
+        model.addAttribute("title", "Dos Chingones - Inicio");
         return "/index";
     }
 

@@ -20,6 +20,9 @@ public interface UsuarioService {
     
     // Se obtiene un Usuario, a partir del username de un usuario
     public Usuario getUsuarioPorUsername(String username);
+    
+    // Se obtiene un Usuario, a partir del ID de un usuario
+    public Usuario getUsuarioPorID(Long ID);
 
     // Se obtiene un Usuario, a partir del username y el password de un usuario
     public Usuario getUsuarioPorUsernameYPassword(String username, String password);

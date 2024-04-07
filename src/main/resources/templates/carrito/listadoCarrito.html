@@ -7,14 +7,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
       xmlns:th="http://wwww.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/layout :: head}">
-        <title th:text="${page-title}"></title>
+        <title>Dos Chingones</title>
         <meta charset="UTF-8"/>
     </head>
     <body>
         <header th:replace="~{layout/layout :: header}"/>
-        <h1>Inicio</h1>
-        <section th:replace="~{carrito/fragmentos_C :: listadoPlatillos}"/>
-
+        <section th:replace="~{carrito/fragmentos_C :: listadoCarrito}"/>
         <header th:replace="~{layout/layout :: footer}"/>
     </body>
 </html>

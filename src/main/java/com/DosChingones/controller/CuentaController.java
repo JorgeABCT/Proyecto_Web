@@ -80,6 +80,7 @@ public class CuentaController {
         Usuario usuarioComprobar = usuarioService.getUsuarioPorUsernameOCorreo(usuario.getUsername(), usuario.getCorreo());
         if (usuarioComprobar == null) {
             usuarioService.save(usuario, true);
+            Usuario usuarioVer = usuarioService.getUsuarioPorUsername(usuario.getUsername());
             return "redirect:/";
         } else {
             bindingResult.reject("error.crear", "Ya existe un usuario con este nombre, o correo ya vinculado a una cuenta.");

@@ -27,6 +27,12 @@ public class PlatilloController {
     public String verPlatillo(Model model, Platillo platillo){
         var platilloVer = platilloService.getPlatillo(platillo);
         model.addAttribute("platillo", platilloVer);
+        if(platilloVer.getCategoria().getNombre().equals("Bebidas")){
+            return "/carrito/verBebida";
+        }
+        String nombre = "Dos Chingones - ";
+        nombre+= platilloVer.getNombre();
+        model.addAttribute("title", nombre);
         return "/carrito/verPlatillo";
     }
 }
