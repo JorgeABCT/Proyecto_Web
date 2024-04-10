@@ -23,12 +23,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     </div>
                                     <form th:action="@{/login}" method="post">
                                         <div class="form-outline mb-4">
-                                            <input type="text" class="form-control form-control-lg" name="username" id="username"/>
+                                            <input type="text" class="form-control form-control-lg" name="username" id="username" required="true"/>
                                             <label class="form-label" for="usuario">Nombre de Usuario</label>
                                         </div>
 
                                         <div class="form-outline mb-4">
-                                            <input class="form-control form-control-lg" type="password" name="password" id="password"/>
+                                            <input class="form-control form-control-lg" type="password" name="password" id="password" required="true"/>
                                             <label class="form-label" for="contra">Contraseña</label>
                                         </div>
 
@@ -115,17 +115,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                         </div>
 
                                         <div class="form-outline mb-4">
-                                            <input type="password" name="password" th:field="*{password}" class="form-control form-control-lg" />
+                                            <input type="password" name="password" th:field="*{password}" class="form-control form-control-lg" required="true"/>
                                             <label class="form-label" id="password" th:field="*{password}">Contraseña</label>
                                         </div>
 
                                         <div class="form-outline mb-4">
-                                            <input type="text" name="nombre" th:field="*{nombre}" class="form-control form-control-lg" />
+                                            <input type="text" name="nombre" th:field="*{nombre}" class="form-control form-control-lg" required="true"/>
                                             <label class="form-label" id="nombre" th:field="*{nombre}">Nombre</label>
                                         </div>
 
                                         <div class="form-outline mb-4">
-                                            <input type="text" name="apellidos" th:field="*{apellidos}" class="form-control form-control-lg" />
+                                            <input type="text" name="apellidos" th:field="*{apellidos}" class="form-control form-control-lg" required="true"/>
                                             <label class="form-label" id="apellidos" th:field="*{apellidos}">Apellidos</label>
                                         </div>
 

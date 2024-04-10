@@ -5,11 +5,13 @@
 package com.DosChingones.controller;
 
 import com.DosChingones.domain.Bebida;
+import com.DosChingones.domain.Item;
 import com.DosChingones.domain.Platillo;
 import com.DosChingones.domain.Usuario;
 import com.DosChingones.service.BebidaService;
 import com.DosChingones.service.CategoriaService;
 import com.DosChingones.service.ImagenService;
+import com.DosChingones.service.ItemService;
 import com.DosChingones.service.PlatilloService;
 import com.DosChingones.service.UsuarioService;
 import java.util.ArrayList;
@@ -22,7 +24,9 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -47,6 +51,9 @@ public class IndexController {
 
     @Autowired
     private BebidaService bebidaService;
+    
+    @Autowired
+    private ItemService itemService;
 
     @GetMapping("/")
     private String listado(Model model) {
@@ -82,9 +89,9 @@ public class IndexController {
                 lista.add(plato);
             }
         }
-        String MenuNombre = "Menu Regular";
-        model.addAttribute("MenuNombre", MenuNombre);
         model.addAttribute("platillos", lista);
+        String nombre = "Dos Chingones - Menu Regular";
+        model.addAttribute("title", nombre);
         return "/menu/menu";
     }
 
@@ -99,9 +106,9 @@ public class IndexController {
                 lista.add(plato);
             }
         }
-        String MenuNombre = "Menu Vegano";
         model.addAttribute("platillos", lista);
-        model.addAttribute("MenuNombre", MenuNombre);
+        String nombre = "Dos Chingones - Menu Vegano";
+        model.addAttribute("title", nombre);
         return "/menu/menu";
     }
 
@@ -116,15 +123,17 @@ public class IndexController {
                 lista.add(plato);
             }
         }
-        String MenuNombre = "Bebidas";
         model.addAttribute("platillos", lista);
-        model.addAttribute("MenuNombre", MenuNombre);
+        String nombre = "Dos Chingones - Bebidas";
+        model.addAttribute("title", nombre);
         return "/menu/bebidas";
     }
     
     @GetMapping("/login")
     public String Login(Model model, Usuario usuario){
         model.addAttribute("usuario", usuario);
+        String nombre = "Dos Chingones - Inicio de sesión";
+        model.addAttribute("title", nombre);
         return "/usuario/inicioU";
     }
 

@@ -59,7 +59,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <a th:href="@{/cuenta/nuevo}"><button type="button" class="btn btn-danger">Crear Cuenta</button></a>
                 </div>
                 <div class="col-md-1 text-center" sec:authorize='isAuthenticated()'>
-                    <a class="text-decoration-none text-danger" th:href="@{/carrito}"><i class="bi bi-cart-fill"></i> Carrito</a>
+                    <a class="text-decoration-none text-danger" th:href="@{/carrito/listado}"><i class="bi bi-cart-fill"></i> Carrito</a>
                 </div>
                 <div class="col-md-1 text-center" sec:authorize='isAuthenticated()'>
                         <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

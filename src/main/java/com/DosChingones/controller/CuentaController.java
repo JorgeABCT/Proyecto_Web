@@ -31,16 +31,18 @@ public class CuentaController {
 
     @Autowired
     private HttpServletRequest request;
-    
+
     @Autowired
     private HttpSession session;
-    
+
     @Autowired
     private UsuarioService usuarioService;
 
     @GetMapping("/nuevo")
     private String nuevo(Model model) {
         model.addAttribute("usuario", new Usuario());
+        String nombre = "Dos Chingones - Nueva Cuenta";
+        model.addAttribute("title", nombre);
         return "/usuario/nuevoU";
     }
 
@@ -50,7 +52,6 @@ public class CuentaController {
         model.addAttribute("usuario", usuario);
         return "/usuario/modificaU";
     }*/
-    
     @GetMapping("/modifica")
     public String modificarCuenta(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -59,6 +60,8 @@ public class CuentaController {
             UserDetails userDetails = (UserDetails) auth.getPrincipal();
             Usuario usuario = usuarioService.getUsuarioPorUsername(userDetails.getUsername());
             model.addAttribute("usuario", usuario);
+            String nombre = "Dos Chingones - Modificar";
+            model.addAttribute("title", nombre);
             return "/usuario/modificaU";
         } else {
             return "redirect:/login";
@@ -87,7 +90,7 @@ public class CuentaController {
             return "/usuario/nuevoU";
         }
     }
-    
+
     @GetMapping("/eliminar")
     public String desactivarCuenta(Model model, HttpServletRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
