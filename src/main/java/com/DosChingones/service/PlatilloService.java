@@ -20,6 +20,8 @@ public interface PlatilloService {
     public Platillo getPlatillo(Platillo platillo);
     
     public Platillo getPlatilloPorNombre(String nombre);
+    
+    public Platillo getPlatilloPorID(Long id);
             
     //Se actualiza una categoria o se inserta una nueva... (Si no hay id es un insert)
     public void save(Platillo platillo);

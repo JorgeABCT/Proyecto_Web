@@ -56,4 +56,10 @@ public class PlatilloServiceImp implements PlatilloService{
     public Platillo getPlatilloPorNombre(String nombre) {
         return platilloDao.findByNombre(nombre);
     }
+    
+    @Override
+    @Transactional(readOnly=true)
+    public Platillo getPlatilloPorID(Long id){
+        return platilloDao.findById(id).orElse(null);
+    }
 }

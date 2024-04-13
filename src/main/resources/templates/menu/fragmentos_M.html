@@ -64,18 +64,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
                 <div class="row row-cols-3" 
                      th:if="${platillos != null and !platillos.empty}">
-                    <div class="card" style="width: 22rem; margin: 1rem" th:each="platillo : ${platillos}">
+                    <div class="card" style="width: 20rem; margin: 1rem" th:each="platillo : ${platillos}">
                         <br/>
                         <a th:href="@{/platillo/}+${platillo.id_platillo}">
                             <div class="d-flex justify-content-center">
-                                <img th:src="@{${platillo.rutaImagen}}" height="200" width="326" class="rounded"/>
+                                <img th:src="@{${platillo.rutaImagen}}" height="200" width="326" class="rounded img-fluid"/>
                             </div>
                         </a>
                         <div class="card-body">
                             <a class="text-decoration-none text-black" th:href="@{/platillo/}+${platillo.id_platillo}">
                                 <h5 class="card-title">[[${platillo.nombre}]]</h5>
                             </a>
-                            <p class="card-text">[[${platillo.descripcion}]]</p>
+                            <p class="card-text text-truncate">[[${platillo.descripcion}]]</p>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><h2 class="text-center" style="">[[${platillo.precio}]]</h2></li>
