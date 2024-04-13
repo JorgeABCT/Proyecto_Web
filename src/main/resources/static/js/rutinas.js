@@ -6,10 +6,8 @@ function addCartListado(idPlatillo) {
     $("#agregadoCarrito").load(url);
 }
 
-function addCartVisualizar(formulario, num) {
-    var url = '/carrito/agregar';
-    url = url + '/' + num;
-    $("#agregadoCarrito").load(url);
+function addCartVisualizar() {
+    $("#exampleModal").modal(show);
 }
 
 function readURL(input) {

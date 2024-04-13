@@ -112,9 +112,12 @@ public class CarritoController {
             totalCarrito += i.getCantidad();
             carritoTotalVenta += (i.getCantidad() * i.getPrecio());
         }
+        boolean mostrarModal = true;
+        model.addAttribute("mostrarModal", mostrarModal);
         model.addAttribute("listaItems", lista);
         model.addAttribute("listaTotal", totalCarrito);
         model.addAttribute("carritoTotal", carritoTotalVenta);
-        return "redirect:/platillo/" + idPlatillo;
+        
+        return "redirect/platillo/"+idPlatillo;
     }
 }

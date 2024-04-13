@@ -25,7 +25,7 @@ public class PlatilloController {
 
     @Autowired
     private ItemService itemService;
-    
+
     @Autowired
     private PlatilloService platilloService;
 
@@ -34,6 +34,9 @@ public class PlatilloController {
         var platilloVer = platilloService.getPlatillo(platillo);
         model.addAttribute("platillo", platilloVer);
         if (platilloVer.getCategoria().getNombre().equals("Bebidas")) {
+            String nombre = "Dos Chingones - ";
+            nombre += platilloVer.getNombre();
+            model.addAttribute("title", nombre);
             return "/carrito/verBebida";
         }
         String nombre = "Dos Chingones - ";
@@ -41,4 +44,21 @@ public class PlatilloController {
         model.addAttribute("title", nombre);
         return "/carrito/verPlatillo";
     }
+    
+    @GetMapping("{id_platillo}/M")
+    public String verPlatilloM(Model model, Platillo platillo) {
+        var platilloVer = platilloService.getPlatillo(platillo);
+        model.addAttribute("platillo", platilloVer);
+        if (platilloVer.getCategoria().getNombre().equals("Bebidas")) {
+            String nombre = "Dos Chingones - ";
+            nombre += platilloVer.getNombre();
+            model.addAttribute("title", nombre);
+            return "/carrito/verBebidaModal";
+        }
+        String nombre = "Dos Chingones - ";
+        nombre += platilloVer.getNombre();
+        model.addAttribute("title", nombre);
+        return "/carrito/verPlatillo";
+    }
+    
 }

@@ -51,7 +51,7 @@ public class IndexController {
 
     @Autowired
     private BebidaService bebidaService;
-    
+
     @Autowired
     private ItemService itemService;
 
@@ -59,21 +59,50 @@ public class IndexController {
     private String listado(Model model) {
         var platillos = platilloService.getPlatillos(true);
         var categorias = categoriaService.getCategorias(true);
-        List<Platillo> lista = new ArrayList<Platillo>();
+        List<Platillo> listaR = new ArrayList<Platillo>();
+        List<Platillo> listaV = new ArrayList<Platillo>();
+        List<Platillo> listaB = new ArrayList<Platillo>();
 
-        for (int i = 1; i < categorias.size(); i++) {
+        /*for (int i = 1; i < categorias.size(); i++) {
             for (int j = 0; j < platillos.size(); j++) {
                 Platillo plato = platillos.get(j);
                 if (plato.getCategoria().getIdCategoria() == i) {
                     lista.add(platillos.get(j));
                 }
             }
+        }*/
+        for (int j = 0; j < 3; j++) {
+            Platillo plato = platillos.get(j);
+            if (plato.isActivo() && !plato.isVegano()) {
+                listaR.add(platillos.get(j));
+            }
+        }
+        
+        for (int x = 0; x < platillos.size(); x++) {
+            Platillo plato = platillos.get(x);
+            if (plato.isActivo() && plato.isVegano()) {
+                listaV.add(platillos.get(x));
+            }
+            if(listaV.size()==3){
+                break;
+            }
+        }
+        
+        for (int k = 0; k < platillos.size(); k++) {
+            Platillo plato = platillos.get(k);
+            if (plato.isActivo() && plato.getCategoria().getNombre().equals("Bebidas")) {
+                listaB.add(platillos.get(k));
+            }
+            if(listaB.size()==3){
+                break;
+            }
         }
 
         var imagen = imagenService.getLogo(true);
         model.addAttribute("categorias", categorias);
-        model.addAttribute("platillos", lista);
-        model.addAttribute("imagen", imagen);
+        model.addAttribute("platillosR", listaR);
+        model.addAttribute("platillosV", listaV);
+        model.addAttribute("platillosB", listaB);
         model.addAttribute("title", "Dos Chingones - Inicio");
         return "/index";
     }
@@ -89,6 +118,8 @@ public class IndexController {
                 lista.add(plato);
             }
         }
+        String nombreMenu = "Menu Regular";
+        model.addAttribute("MenuNombre", nombreMenu);
         model.addAttribute("platillos", lista);
         String nombre = "Dos Chingones - Menu Regular";
         model.addAttribute("title", nombre);
@@ -106,6 +137,8 @@ public class IndexController {
                 lista.add(plato);
             }
         }
+        String nombreMenu = "Menu Vegano";
+        model.addAttribute("MenuNombre", nombreMenu);
         model.addAttribute("platillos", lista);
         String nombre = "Dos Chingones - Menu Vegano";
         model.addAttribute("title", nombre);
@@ -123,14 +156,35 @@ public class IndexController {
                 lista.add(plato);
             }
         }
+        String nombreMenu = "Bebidas";
+        model.addAttribute("MenuNombre", nombreMenu);
         model.addAttribute("platillos", lista);
         String nombre = "Dos Chingones - Bebidas";
         model.addAttribute("title", nombre);
         return "/menu/bebidas";
     }
     
+    @GetMapping("/ofertas")
+    private String ofertas(Model model) {
+        var platillos = platilloService.getPlatillos(true);
+        List<Platillo> lista = new ArrayList<Platillo>();
+
+        for (int j = 0; j < platillos.size(); j++) {
+            Platillo plato = platillos.get(j);
+            if (plato.isActivo() && plato.getCategoria().getNombre().equals("Ofertas")) {
+                lista.add(plato);
+            }
+        }
+        String nombreMenu = "Ofertas";
+        model.addAttribute("MenuNombre", nombreMenu);
+        model.addAttribute("platillos", lista);
+        String nombre = "Dos Chingones - Ofertas";
+        model.addAttribute("title", nombre);
+        return "/menu/menu";
+    }
+
     @GetMapping("/login")
-    public String Login(Model model, Usuario usuario){
+    public String Login(Model model, Usuario usuario) {
         model.addAttribute("usuario", usuario);
         String nombre = "Dos Chingones - Inicio de sesión";
         model.addAttribute("title", nombre);
@@ -150,5 +204,12 @@ public class IndexController {
         } else {
             return "redirect:/login";
         }
+    }
+    
+    @GetMapping("/nosotros")
+    public String SobreNosotros(Model model){
+        String nombre = "Dos Chingones - Nosotros";
+        model.addAttribute("title", nombre);
+        return "nosotros";
     }
 }

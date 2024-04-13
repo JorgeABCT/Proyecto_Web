@@ -11,9 +11,278 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <meta charset="UTF-8"/>
     </head>
     <body>
+        <!--
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+            <a th:href="@{/}" class="align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+                <img src="https://firebasestorage.googleapis.com/v0/b/dos-chingones-b1e2a.appspot.com/o/Logo_DosChingones.png?alt=media&token=c8334e44-3703-42ab-921a-b929c45e916a" alt="Logo_DosChingones" class="mx-auto d-block" style="width: 50%; height: auto"/>
+            </a>
+            <ul class="nav col-10 col-md-auto mb-2 justify-content-center mb-md-0">
+                <li sec:authorize='isAuthenticated()'><a href="#" class="nav-link px-2 link-dark">Facturas</a></li>
+                <li class="nav-item dropdown link-dark" sec:authorize="hasAnyRole('ROLE_EMPLEADO', 'ROLE_ADMIN')">
+                    <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Administracion
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="dropdown-item" th:href="@{/menu_regular}">Cambio de Imagen</a></li>
+                        <li><a class="dropdown-item" th:href="@{/admin/listadoUsuarios}">Ver Usuarios</a></li>
+                        <li><a class="dropdown-item" th:href="@{/admin/listadoCategorias}">Ver Categorias</a></li>
+                        <li><a class="dropdown-item" th:href="@{/admin/listadoPlatillos}">Ver Platillos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/admin/listadoPedidos}">Ver Pedidos</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="col-md-3 text-end" sec:authorize='!isAuthenticated()'>
+                <a th:href="@{/login}"><button type="button" class="btn btn-outline-danger me-2">Entrar</button></a>
+                <a th:href="@{/cuenta/nuevo}"><button type="button" class="btn btn-danger">Crear Cuenta</button></a>
+            </div>
+            <div class="col-md-1 text-center" sec:authorize='isAuthenticated()'>
+                <a class="text-decoration-none text-danger" th:href="@{/carrito/listado}"><i class="bi bi-cart-fill"></i> Carrito</a>
+            </div>
+            <div class="col-md-1 text-center" sec:authorize='isAuthenticated()'>
+                <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle h2"></i>
+                    <span sec:authentication='name'>Jhon</span>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" th:href="@{/cuenta/modifica}">Modificar Cuenta</a></li>
+                    <form method='post' th:action='@{/logout}'>
+                        <li><button class="shadow-none decoration-none" type="submit" style="border: none; padding: 0; background: none"><a class="dropdown-item">Cerrar cuenta</a></button></li>
+                    </form>
+                </ul>
+            </div>
+        </header>-->
+
         <header th:replace="~{layout/layout :: header}"/>
-        <h1>Inicio</h1>
-        <section th:replace="~{carrito/fragmentos_C :: listadoPlatillos}"/>
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style='transition-duration: 4s;'>
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/dos-chingones-b1e2a.appspot.com/o/Foto7_DosChingones.png?alt=media&token=a5633e20-1777-4a44-8cab-707c185440bb" class="d-block w-100 rounded" alt="Inicio" height="75%"/>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/dos-chingones-b1e2a.appspot.com/o/Foto5_DosChingones.png?alt=media&token=015c8f98-8455-4216-bfd3-01b25eca557a" class="d-block w-100 rounded" alt="Cual es mejor?" height="75%"/>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://firebasestorage.googleapis.com/v0/b/dos-chingones-b1e2a.appspot.com/o/Foto6_DosChingones.png?alt=media&token=7cb7f698-ca23-4bb4-82ce-dac117ec6397" class="d-block w-100 rounded" alt="Remodelacion" height="75%"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center py-4">
+                <h2>¡Bienvenido a Dos Chingones!</h2>
+            </div>
+        </div>
+        <div class="text-center py-2">
+            <h3>Nuestro menu</h3>
+        </div>
+        <!--<div class='d-flex justify-content-center text-center grid gap-3'>
+            <button type="button" class="btn btn-primary btn-lg">Menu Regular</button>
+            <button type="button" class="btn btn-primary btn-lg">Bebidas</button>
+            <button type="button" class="btn btn-primary btn-lg">Menu Vegano</button>
+        </div>
+        <br/>
+        <div class='d-flex justify-content-center text-center grid gap-3'>
+            <button type="button" class="btn btn-primary btn-lg">Ofertas</button>
+        </div>-->
+
+        <section th:fragment="listadoPlatillosR" id="platillosR">
+            <div class="container">
+                <div class="row row-cols-2" >
+                    <h2 class="inline">Menu regular</h2>
+                    <div id="resultsBlock"></div>
+                </div>
+                <div class="row row-cols-3  ms-4" 
+                     th:if="${platillosR != null and !platillosR.empty}">
+                    <div class="card" style="width: 20rem; margin: 3rem" th:each="platillo : ${platillosR}">
+                        <br/>
+                        <a th:href="@{/platillo/}+${platillo.id_platillo}">
+                            <div class="d-flex justify-content-center">
+                                <img th:src="@{${platillo.rutaImagen}}" height="200" width="326" class="rounded img-fluid"/>
+                            </div>
+                        </a>
+                        <div class="card-body">
+                            <a class="text-decoration-none text-black" th:href="@{/platillo/}+${platillo.id_platillo}">
+                                <h5 class="card-title">[[${platillo.nombre}]]</h5>
+                            </a>
+                            <p class="card-text text-truncate">[[${platillo.descripcion}]]</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><h2 class="text-center" style="">[[${platillo.precio}]]</h2></li>
+                        </ul>
+                        <div class="card-body text-center" sec:authorize='isAuthenticated()'>
+                            <input type="hidden" name="id_platillo" id="idDelPlatillo" th:value="${platillo.id_platillo}"/>
+                            <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar al carrito</button>
+                            <div id="agregadoCarrito">
+
+                            </div>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Platillo añadido</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body d-flex justify-content-center">
+                                            <h3>¡Se agregó con éxito el platillo en el carrito!</h3>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <h2><i class="bi bi-cart-check-fill h1"></i></h2>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center">
+                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Seguir</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
+                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class='d-flex justify-content-center text-center'>
+                    <button type="button" class="btn btn-primary btn-lg"><a class="dropdown-item" th:href="@{/menu_regular}">Ver todo el Menu Regular</a></button>
+                </div>
+                <div th:if="${platillosR == null or platillosR.empty}">
+                    No hay platillos disponibles en este momento
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="listadoPlatillosV" id="platillosV">
+            <div class="container">
+                <div class="row row-cols-2" >
+                    <h2 class="inline">Menu vegano</h2>
+                    <div id="resultsBlock"></div>
+                </div>
+                <div class="row row-cols-3 ms-4" 
+                     th:if="${platillosV != null and !platillosV.empty}">
+                    <div class="card" style="width: 20rem; margin: 3rem" th:each="platillo : ${platillosV}">
+                        <br/>
+                        <a th:href="@{/platillo/}+${platillo.id_platillo}">
+                            <div class="d-flex justify-content-center">
+                                <img th:src="@{${platillo.rutaImagen}}" height="200" width="326" class="rounded img-fluid"/>
+                            </div>
+                        </a>
+                        <div class="card-body">
+                            <a class="text-decoration-none text-black" th:href="@{/platillo/}+${platillo.id_platillo}">
+                                <h5 class="card-title">[[${platillo.nombre}]]</h5>
+                            </a>
+                            <p class="card-text text-truncate">[[${platillo.descripcion}]]</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><h2 class="text-center" style="">[[${platillo.precio}]]</h2></li>
+                        </ul>
+                        <div class="card-body text-center" sec:authorize='isAuthenticated()'>
+                            <input type="hidden" name="id_platillo" id="idDelPlatillo" th:value="${platillo.id_platillo}"/>
+                            <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar al carrito</button>
+                            <div id="agregadoCarrito">
+
+                            </div>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Platillo añadido</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body d-flex justify-content-center">
+                                            <h3>¡Se agregó con éxito el platillo en el carrito!</h3>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <h2><i class="bi bi-cart-check-fill h1"></i></h2>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center">
+                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Seguir</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
+                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class='d-flex justify-content-center text-center'>
+                    <button type="button" class="btn btn-primary btn-lg"><a class="dropdown-item" th:href="@{/menu_vegano}">Ver todo el Menu Vegano</a></button>
+                </div>
+                <div th:if="${platillosV == null or platillosV.empty}">
+                    No hay platillos disponibles en este momento
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="listadoPlatillosB" id="platillosB">
+            <div class="container">
+                <div class="row row-cols-2" >
+                    <h2 class="inline">Bebidas</h2>
+                    <div id="resultsBlock"></div>
+                </div>
+                <div class="row row-cols-3 ms-4" 
+                     th:if="${platillosB != null and !platillosB.empty}">
+                    <div class="card" style="width: 20rem; margin: 3rem" th:each="platillo : ${platillosB}">
+                        <br/>
+                        <a th:href="@{/platillo/}+${platillo.id_platillo}">
+                            <div class="d-flex justify-content-center">
+                                <img th:src="@{${platillo.rutaImagen}}" height="200" width="326" class="rounded"/>
+                            </div>
+                        </a>
+                        <div class="card-body">
+                            <a class="text-decoration-none text-black" th:href="@{/platillo/}+${platillo.id_platillo}">
+                                <h5 class="card-title">[[${platillo.nombre}]]</h5>
+                            </a>
+                            <p class="card-text text-truncate">[[${platillo.descripcion}]]</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><h2 class="text-center" style="">[[${platillo.precio}]]</h2></li>
+                        </ul>
+                        <div class="card-body text-center" sec:authorize='isAuthenticated()'>
+                            <input type="hidden" name="id_platillo" id="idDelPlatillo" th:value="${platillo.id_platillo}"/>
+                            <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar al carrito</button>
+                            <div id="agregadoCarrito">
+
+                            </div>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Platillo añadido</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body d-flex justify-content-center">
+                                            <h3>¡Se agregó con éxito el platillo en el carrito!</h3>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <h2><i class="bi bi-cart-check-fill h1"></i></h2>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center">
+                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Seguir</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
+                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class='d-flex justify-content-center text-center'>
+                    <button type="button" class="btn btn-primary btn-lg"><a class="dropdown-item" th:href="@{/bebidas}">Ver todas las Bebidas</a></button>
+                </div>
+                <div th:if="${platillosB == null or platillosB.empty}">
+                    No hay bebidas disponibles en este momento.
+                </div>
+            </div>
+        </section>
 
         <header th:replace="~{layout/layout :: footer}"/>
     </body>

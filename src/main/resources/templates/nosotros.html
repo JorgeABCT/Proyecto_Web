@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://wwww.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/layout :: head}">
+        <title th:text="${page-title}"></title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header th:replace="~{layout/layout :: header}"/>
+
+        <section>
+            <div class="container">
+                <div class="row" >
+                    <h2 class="inline text-center">Sobre Dos Chingones</h2>
+                    <div class='d-flex justify-content-center'>
+                        <img src="https://firebasestorage.googleapis.com/v0/b/dos-chingones-b1e2a.appspot.com/o/Logo_DosChingones.png?alt=media&token=c8334e44-3703-42ab-921a-b929c45e916a" alt="Logo_DosChingones"/>
+                        <br/>
+                    </div>
+                    <div class="text-center">
+                        <br/>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed ipsum a magna dapibus placerat at non felis. Morbi vulputate tortor ornare, egestas tellus ac, consequat nisi. Ut a condimentum nunc. 
+                            Donec ullamcorper ligula commodo leo egestas, sed tempor dui consequat. Nam ultricies lorem consequat sem facilisis efficitur. 
+                            Suspendisse potenti. Morbi sit amet consequat eros, vitae auctor tellus. Sed mattis accumsan felis, sit amet imperdiet quam lacinia sed.
+
+                            Cras quis porttitor ipsum, at placerat risus. Fusce semper urna et orci dapibus, non semper massa lobortis. Curabitur dictum augue magna, eget tincidunt dolor dictum sit amet. 
+                            Integer sem eros, blandit quis elementum sed, pretium sed risus. Donec nec vehicula leo. Fusce vestibulum egestas nisi. Nunc eu volutpat elit, id aliquet odio. 
+                            Mauris finibus mattis ligula, at rutrum odio sodales ac. Praesent quis diam vitae turpis malesuada dictum nec vitae lorem. Nunc venenatis rhoncus augue, nec laoreet neque tristique id. 
+                            Sed mauris augue, bibendum eu massa sit amet, malesuada euismod nunc. Curabitur nec interdum purus. Maecenas cursus dui sit amet ornare sollicitudin.  
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <hr class="my-4 rounded" style="width:95%"/>
+            </div>
+            <br/>
+            <div class='d-flex justify-content-center'>
+                <h2 class="inline">La familia Dos Chingones</h2>
+            </div>
+            <div class='text-center'>
+                <br/>
+                <img src="https://firebasestorage.googleapis.com/v0/b/dos-chingones-b1e2a.appspot.com/o/Nosotros_DosChingones.jpg?alt=media&token=bc54f847-1d05-4edb-a741-a0de9954c3ab" alt="Familia_DosChingones" width="35%" class='rounded'/>
+            </div>
+            <br/>
+        </section>
+        <header th:replace="~{layout/layout :: footer}"/>
+    </body>
+</html>
