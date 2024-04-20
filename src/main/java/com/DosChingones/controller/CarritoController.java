@@ -4,13 +4,19 @@
  */
 package com.DosChingones.controller;
 
+import com.DosChingones.dao.DetalleDao;
+import com.DosChingones.dao.FacturaDao;
+import com.DosChingones.dao.PlatilloDao;
 import com.DosChingones.domain.Item;
 import com.DosChingones.domain.Platillo;
 import com.DosChingones.service.ItemService;
 import com.DosChingones.service.PlatilloService;
+import com.DosChingones.service.UsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -178,11 +184,24 @@ public class CarritoController {
     }*/
     @PostMapping("/actualizar/{idPlatillo}")
     public String actualizarItem(@PathVariable("idPlatillo") Long idPlatillo, @ModelAttribute("item") Item item, Model model) {
-        System.out.println("Si se consiguió el Mapping. Mira: \nCantidad: " + item.getCantidad() + "\nDetalle: " + item.getDetalle()+"\nItemID: "+item.getIDitem()+"\nNombre: "+item.getNombre());
+        System.out.println("Si se consiguió el Mapping. Mira: \nCantidad: " + item.getCantidad() + "\nDetalle: " + item.getDetalle() + "\nItemID: " + item.getIDitem() + "\nNombre: " + item.getNombre());
         Item item2 = new Item();
         item2.setIDitem(idPlatillo);
         item2 = itemService.get(item);
         itemService.update(item2, item.getDetalle(), item.getCantidad());
         return "redirect:/carrito/listado";
+    }
+
+    @GetMapping("/facturar")
+    public String facturarCarrito() {
+        itemService.facturar();
+        return "redirect:/carrito/compra_satisfactoria";
+    }
+
+    @GetMapping("/compra_satisfactoria")
+    public String gracias(Model model) {
+        String nombre = "Dos Chingones - Compra Satisfactoria";
+        model.addAttribute("title", nombre);
+        return "/carrito/ThxCompra";
     }
 }

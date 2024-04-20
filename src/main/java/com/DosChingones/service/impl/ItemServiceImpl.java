@@ -4,9 +4,21 @@
  */
 package com.DosChingones.service.impl;
 
+import com.DosChingones.dao.DetalleDao;
+import com.DosChingones.dao.FacturaDao;
+import com.DosChingones.dao.PlatilloDao;
+import com.DosChingones.domain.Detalle;
 import com.DosChingones.domain.Item;
+import com.DosChingones.domain.Usuario;
+import com.DosChingones.domain.Factura;
+import com.DosChingones.domain.Platillo;
 import com.DosChingones.service.ItemService;
+import com.DosChingones.service.PlatilloService;
+import com.DosChingones.service.UsuarioService;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 /**
@@ -54,7 +66,7 @@ public class ItemServiceImpl implements ItemService {
         }
         if (!existe) {
             item.setCantidad(1);
-            item.setIDitem(Long.valueOf(this.gets().size()+1));
+            item.setIDitem(Long.valueOf(this.gets().size() + 1));
             listaItems.add(item);
         }
     }
@@ -86,15 +98,54 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
-    @Override
-    public void facturar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    @Autowired
+    private UsuarioService uuarioService;
+    @Autowired
+    private FacturaDao facturaDao;
+    @Autowired
+    private DetalleDao detalleDao;
+    @Autowired
+    private PlatilloDao platilloDao;
+    @Autowired
+    private PlatilloService platilloService;
 
-    private Long generarProximoId() {
-        // Lógica para generar un nuevo ID único, por ejemplo, puedes utilizar un contador
-        // O puedes considerar usar una estrategia más robusta, como UUID.randomUUID()
-        // En este ejemplo, simplemente devuelvo el tamaño actual del carrito más uno
-        return Long.valueOf(this.gets().size() + 1);
+    public void facturar() {
+        System.out.println("Facturando");
+
+        //Se obtiene el usuario autenticado
+        String username;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails userDetails) {
+            username = userDetails.getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        if (username.isBlank()) {
+            return;
+        }
+        Usuario uuario = uuarioService.getUsuarioPorUsername(username);
+
+        if (uuario == null) {
+            return;
+        }
+
+        Factura factura = new Factura(uuario);
+        facturaDao.save(factura);
+
+        double total = 0;
+        for (Item i : listaItems) {
+            System.out.println("Producto: " + i.getNombre()
+                    + " Cantidad: " + i.getCantidad()
+                    + " Total: " + i.getPrecio() * i.getCantidad());
+
+            Platillo getPlatillo = platilloService.getPlatilloPorID(i.getId_platillo());
+            Detalle venta = new Detalle(factura, getPlatillo, i.getPrecio(), i.getCantidad());
+            detalleDao.save(venta);
+            total += i.getPrecio() * i.getCantidad();
+        }
+        factura.setTotal(total);
+        facturaDao.save(factura);
+        listaItems.clear();
     }
 }

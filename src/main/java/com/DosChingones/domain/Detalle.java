@@ -6,11 +6,13 @@ package com.DosChingones.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
@@ -30,19 +32,28 @@ public class Detalle implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_venta")
+    @Column(name = "id_detalle")
     private Long idDetalle;
     
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_factura")
     private Factura factura;
     
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_platillo")
     private Platillo platillo;
     
-    private Long precio;
-    private int Cantidad; /*Maximo 5*/
+    @Column(name = "precio")
+    private Double precio;
+    
+    @Column(name = "cantidad")
+    private int Cantidad; // Cambiado a minúscula, para seguir convención
+    
+    public Detalle(){
+        
+    }
 
-    public Detalle(Factura factura, Platillo platillo, Long precio, int Cantidad) {
+    public Detalle(Factura factura, Platillo platillo, Double precio, int Cantidad) {
         this.factura = factura;
         this.platillo = platillo;
         this.precio = precio;
