@@ -18,7 +18,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
         <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
         <script th:src="@{/js/rutinas.js}"></script>
-        <!--<script th:src="@{/css/estilos.css}"></script>-->
+        <link type="text/css" th:src="@{/css/estilos.css}"/>
     </head>
     <body>
         <section th:fragment="header">
@@ -69,7 +69,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" th:href="@{/cuenta/modifica}">Modificar Cuenta</a></li>
                             <form method='post' th:action='@{/logout}'>
-                                <li><button class="shadow-none decoration-none" type="submit" style="border: none; padding: 0; background: none"><a class="dropdown-item">Cerrar cuenta</a></button></li>
+                                <li><a class="dropdown-item"><button class="shadow-none decoration-none" type="submit" style="border: none; padding: 0; background: none">Cerrar cuenta</button></a></li>
                             </form>
                         </ul>
                 </div>

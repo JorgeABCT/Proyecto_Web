@@ -4,7 +4,6 @@
  */
 package com.DosChingones.service.impl;
 
-
 import com.DosChingones.domain.Item;
 import com.DosChingones.service.ItemService;
 import java.util.List;
@@ -18,6 +17,16 @@ import org.springframework.stereotype.Service;
 public class ItemServiceImpl implements ItemService {
 
     @Override
+    public Item getNoEsp(Item item) {
+        for (Item i : listaItems) {
+            if (i.getId_platillo() == item.getId_platillo() && i.getDetalle().equals(item.getDetalle())) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    @Override
     public List<Item> gets() {
         return listaItems;
     }
@@ -26,7 +35,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Item get(Item item) {
         for (Item i : listaItems) {
-            if (i.getId_platillo() == item.getId_platillo() && i.getDetalle().equals(item.getDetalle())) {
+            if (i.getIDitem() == item.getIDitem()) {
                 return i;
             }
         }
@@ -37,14 +46,15 @@ public class ItemServiceImpl implements ItemService {
     public void save(Item item) {
         var existe = false;
         for (Item i : listaItems) {
-            if (i.getId_platillo() == item.getId_platillo()  && i.getDetalle().equals(item.getDetalle())) {
-                i.setCantidad(i.getCantidad()+1);
+            if (this.get(item) == i) {
+                i.setCantidad(i.getCantidad() + 1);
                 existe = true;
                 break;
             }
         }
         if (!existe) {
             item.setCantidad(1);
+            item.setIDitem(Long.valueOf(this.gets().size()+1));
             listaItems.add(item);
         }
     }
@@ -55,7 +65,7 @@ public class ItemServiceImpl implements ItemService {
         var existe = false;
         for (Item i : listaItems) {
             posicion++;
-            if (i.getId_platillo() == item.getId_platillo()  && i.getDetalle().equals(item.getDetalle())) {
+            if (this.get(item) == i) {
                 existe = true;
                 break;
             }
@@ -66,10 +76,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void update(Item item) {
+    public void update(Item item, String detalle, int Cantidad) {
         for (Item i : listaItems) {
-            if (i.getId_platillo() == item.getId_platillo() && i.getDetalle().equals(item.getDetalle())) {
-                i.setCantidad(item.getCantidad());
+            if (this.get(item) == i) {
+                i.setDetalle(detalle);
+                i.setCantidad(Cantidad);
                 break;
             }
         }
@@ -80,4 +91,10 @@ public class ItemServiceImpl implements ItemService {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    private Long generarProximoId() {
+        // Lógica para generar un nuevo ID único, por ejemplo, puedes utilizar un contador
+        // O puedes considerar usar una estrategia más robusta, como UUID.randomUUID()
+        // En este ejemplo, simplemente devuelvo el tamaño actual del carrito más uno
+        return Long.valueOf(this.gets().size() + 1);
+    }
 }

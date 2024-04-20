@@ -1,11 +1,14 @@
-/* 
-    Created on : 9 mar 2024, 18:14:47
-    Author     : XPC
-*/
-
-.nav.conFocus li a{
-    color: #C73439;
-    text-decoration: none;
+.modal-header-success {
+    color:#fff;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #5cb85c;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
 }
 
 
