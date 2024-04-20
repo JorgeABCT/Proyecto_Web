@@ -9,6 +9,7 @@ import com.DosChingones.domain.Platillo;
 import com.DosChingones.service.ItemService;
 import com.DosChingones.service.PlatilloService;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -85,12 +86,12 @@ public class CarritoController {
         return new ModelAndView("/menu/fragmentos_M :: overlayAgregadoCarrito");
     }
 
-    @PostMapping("/agregarV/{id_platillo}")
+    /*    @PostMapping("/agregarV/{id_platillo}")
     public String agregarAlCarrito(@PathVariable("id_platillo") Long idPlatillo,
             @RequestParam("CambiosPlatillo") String cambiosPlatillo,
             HttpServletRequest request, Model model) {
         /*System.out.println("ID del platillo: " + idPlatillo);
-        System.out.println("Cambios en el platillo: " + cambiosPlatillo);*/
+        System.out.println("Cambios en el platillo: " + cambiosPlatillo);
         Platillo getPlatillo = new Platillo();
         getPlatillo.setId_platillo(idPlatillo);
         Item item = new Item(getPlatillo);
@@ -117,7 +118,55 @@ public class CarritoController {
         model.addAttribute("listaItems", lista);
         model.addAttribute("listaTotal", totalCarrito);
         model.addAttribute("carritoTotal", carritoTotalVenta);
-        
-        return "redirect/platillo/"+idPlatillo;
+
+        return "redirect/platillo/" + idPlatillo;
+    }
+     */
+
+ /*@GetMapping("/agregarV")
+    public ModelAndView agregarCarritoConDetalle(@RequestParam Map<String, String> prueba,
+            HttpServletRequest request, Model model){
+        System.out.println("Si llegaron los cambios. \nPor ejemplo:"+prueba);
+        return null;
+    }*/
+    @GetMapping("/agregarV/{idPlatillo}/{detalle}")
+    public ModelAndView agregarCarritoConDetalle(@PathVariable("idPlatillo") Long idPlatillo, @PathVariable("detalle") String cambiosPlatillo, Model model) {
+        System.out.println("Si llegaron los cambios. \nPor ejemplo: " + idPlatillo + "\nDetalle: " + cambiosPlatillo);
+        Platillo getPlatillo = new Platillo();
+        getPlatillo.setId_platillo(idPlatillo);
+        Item item = new Item(getPlatillo);
+        item.setDetalle(cambiosPlatillo);
+        Item item2 = itemService.get(item);
+        if (item2 == null) {//No existe el producto en el carrito
+            Platillo platillo = platilloService.getPlatillo(item);
+            item2 = new Item(platillo);
+            item2.setDetalle(cambiosPlatillo);
+        }
+
+        itemService.save(item2);
+
+        var lista = itemService.gets();
+        var totalCarrito = 0;
+        var carritoTotalVenta = 0;
+
+        for (Item i : lista) {
+            totalCarrito += i.getCantidad();
+            carritoTotalVenta += (i.getCantidad() * i.getPrecio());
+        }
+        model.addAttribute("listaItems", lista);
+        model.addAttribute("listaTotal", totalCarrito);
+        model.addAttribute("carritoTotal", carritoTotalVenta);
+
+        return new ModelAndView("/menu/fragmentos_M :: overlayAgregadoCarrito");
+    }
+
+    @GetMapping("/eliminar/{id_platillo}")
+    public String eliminarItem(@PathVariable("id_platillo") Long idPlatillo, Model model) {
+        Platillo getPlatillo = new Platillo();
+        getPlatillo.setId_platillo(idPlatillo);
+        Item item = new Item(getPlatillo);
+        Item item2 = itemService.get(item);
+        itemService.delete(item2);
+        return "redirect:/carrito/listado";
     }
 }
