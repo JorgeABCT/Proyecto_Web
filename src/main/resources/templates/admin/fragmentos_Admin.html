@@ -244,13 +244,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="vegano">¿Quiere activarla de una vez?</label>
-                                    <input class="form-check-input" type="checkbox" name="vegano" id="activo"/>
+                                    <label for="activo">¿Quiere activarla de una vez?</label>
+                                    <input class="form-check-input" type="checkbox" name="activo" id="activo"/>
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="activo">¿Es una opción vegana?</label>
-                                    <input class="form-check-input" type="checkbox" name="activo" id="activo"/>
+                                    <label for="vegano">¿Es una opción vegana?</label>
+                                    <input class="form-check-input" type="checkbox" name="vegano" id="activo"/>
                                 </div>
 
                                 <div class="mb-3">
@@ -669,6 +669,250 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </form>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section th:fragment="listadoPedidos" id="items">
+            <div class="container">
+                <h2>Pedidos Activos</h2>
+                <section class="h-100">
+                    <div class="container py-2">
+                        <div class="row d-flex justify-content-center my-4">
+                            <div class="col-md-8">
+                                <div class="card mb-4">
+                                    <div class="card-header py-3">
+                                        <h4>Listado de pedidos activos. <br/> Hay [[${items.size()}]] pedidos activos</h4>
+                                    </div>
+                                    <div class="card-body"  style="background-color: #eee;">
+                                        <div class="row" th:each="pedido : ${items}">
+                                            <section>
+                                                <div class="container py-3">
+                                                    <div class="row d-flex justify-content-center align-items-center">
+                                                        <div class="col">
+                                                            <div class="card card-stepper" style="border-radius: 10px;">
+                                                                <div class="card-body p-4">
+                                                                    <h3> Factura #[[${pedido.idFactura}]]</h3>
+                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                        <div class="d-flex flex-column">
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 1}">La orden se esta preparando.</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 2}">La orden se esta entregando.</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 3}">La orden ha llegado a la ubicacion deseada!</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 4}">La orden ha sido cancelada.</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado >= 5 || pedido.estado ==0}">La orden ha tenido un problema.</span>
+                                                                            <span class="text-muted small">Realizado el dia [[${#dates.format(pedido.fecha, 'dd-MM-yyyy')}]] </span>
+                                                                        </div>
+                                                                        <div>
+                                                                            <a th:href="@{/admin/pedido/eliminar/}+${pedido.idFactura}"
+                                                                               class="btn btn-danger">
+                                                                                <i class="fas fa-trash"></i> Eliminar</a>
+                                                                            <br/>
+                                                                            <br/>
+                                                                            <div>
+                                                                                <button class="btn btn-success" data-bs-toggle="modal" th:data-bs-target="'#exampleModal-' + ${pedido.idFactura}"><i class="fas fa-pencil"></i> Modificar</button>
+                                                                                <div id="agregadoCarrito"></div>
+                                                                                <div class="modal fade" th:id="'exampleModal-' + ${pedido.idFactura}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                    <div class="modal-dialog">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header modal-header-success">
+                                                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar la entrega</h1>
+                                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                            </div>
+                                                                                            <form th:action="@{/admin/pedido/guardar}" th:object="${factura}"
+                                                                                                  method="POST" class="was-validated" enctype="multipart/form-data">
+                                                                                                <input type="hidden" name="idFactura" th:value="${pedido.idFactura}"/>
+                                                                                                <div class="modal-body">
+                                                                                                    <div class="mb-3">
+                                                                                                        <label for='RolesDisponibles'>Seleccione el estado de la entrega</label>
+                                                                                                        <select name="OpcionesEntrega" class="form-select" aria-label="Default select example">
+                                                                                                            <option value="1">Preparación</option>
+                                                                                                            <option value="2">En camino</option>
+                                                                                                            <option value="3">Entregado</option>
+                                                                                                            <option value="4">Cancelado</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer">
+                                                                                                        <button class="btn btn-primary" type="submit">Guardar</button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </form>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <hr class="my-4"/>
+                                                                    <div>
+                                                                        <h5>Tu orden consiste en: </h5>
+
+                                                                        <section id="detalles" th:with="facturaDetalles=${detalles[pedido.idFactura]}">
+                                                                            <div th:each="detalle : ${facturaDetalles}">
+                                                                                <div class="row">
+                                                                                    <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                                                                        <a th:href="@{/platillo/}+${detalle.platillo.id_platillo}">
+                                                                                            <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                                                                                                <img th:src="@{${detalle.platillo.rutaImagen}}" class="rounded img-fluid w-100" th:alt="${detalle.platillo.nombre}"/>
+                                                                                            </div>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                                                                        <!-- Data -->
+                                                                                        <h4>[[${detalle.platillo.nombre}]]</h4>
+                                                                                        <h5>¿Tiene algún cambio? </h5>
+                                                                                        <h5 th:if="${!detalle.detalle.isEmpty}">Si</h5>
+                                                                                        <h5 th:if="${detalle.detalle.isEmpty}">No</h5>
+                                                                                        <h6>Precio unitario: ₡[[${detalle.platillo.precio}]]</h6>
+                                                                                        <h6>Cantidad: [[${detalle.cantidad}]]</h6>
+                                                                                        <!-- Data -->
+                                                                                    </div>
+                                                                                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                                                                        <p class="text-start text-md-center">
+                                                                                            <strong>₡[[${detalle.platillo.precio*detalle.cantidad}]]</strong>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <hr class="my-4"/> <!--th:if="${listaTotal != 1}"-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </section>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+        
+        <section th:fragment="listadoPedidosTerminados" id="pedidosT">
+            <div class="container">
+                <h2>Pedidos terminados</h2>
+                <section class="h-100">
+                    <div class="container py-2">
+                        <div class="row d-flex justify-content-center my-4">
+                            <div class="col-md-8">
+                                <div class="card mb-4">
+                                    <div class="card-header py-3">
+                                        <h4>Listado de pedidos terminados</h4>
+                                    </div>
+                                    <div class="card-body"  style="background-color: #eee;">
+                                        <div class="row" th:each="pedido : ${pedidosT}">
+                                            <section>
+                                                <div class="container py-3">
+                                                    <div class="row d-flex justify-content-center align-items-center">
+                                                        <div class="col">
+                                                            <div class="card card-stepper" style="border-radius: 10px;">
+                                                                <div class="card-body p-4">
+                                                                    <h3> Factura #[[${pedido.idFactura}]]</h3>
+                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                        <div class="d-flex flex-column">
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 1}">La orden se esta preparando.</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 2}">La orden se esta entregando.</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 3}">La orden ha llegado a la ubicacion deseada!</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 4}">La orden ha sido cancelada.</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado >= 5 || pedido.estado ==0}">La orden ha tenido un problema.</span>
+                                                                            <span class="text-muted small">Realizado el dia [[${#dates.format(pedido.fecha, 'dd-MM-yyyy')}]] </span>
+                                                                        </div>
+                                                                        <div>
+                                                                            <a th:href="@{/admin/pedido/eliminar/}+${pedido.idFactura}"
+                                                                               class="btn btn-danger">
+                                                                                <i class="fas fa-trash"></i> Eliminar</a>
+                                                                            <br/>
+                                                                            <br/>
+                                                                            <div>
+                                                                                <button class="btn btn-success" data-bs-toggle="modal" th:data-bs-target="'#exampleModal-' + ${pedido.idFactura}"><i class="fas fa-pencil"></i> Modificar</button>
+                                                                                <div id="agregadoCarrito"></div>
+                                                                                <div class="modal fade" th:id="'exampleModal-' + ${pedido.idFactura}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                    <div class="modal-dialog">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header modal-header-success">
+                                                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar la entrega</h1>
+                                                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                                            </div>
+                                                                                            <form th:action="@{/admin/pedido/guardar}" th:object="${factura}"
+                                                                                                  method="POST" class="was-validated" enctype="multipart/form-data">
+                                                                                                <input type="hidden" name="idFactura" th:value="${pedido.idFactura}"/>
+                                                                                                <div class="modal-body">
+                                                                                                    <div class="mb-3">
+                                                                                                        <label for='RolesDisponibles'>Seleccione el estado de la entrega</label>
+                                                                                                        <select name="OpcionesEntrega" class="form-select" aria-label="Default select example">
+                                                                                                            <option value="1">Preparación</option>
+                                                                                                            <option value="2">En camino</option>
+                                                                                                            <option value="3">Entregado</option>
+                                                                                                            <option value="4">Cancelado</option>
+                                                                                                        </select>
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer">
+                                                                                                        <button class="btn btn-primary" type="submit">Guardar</button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </form>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <hr class="my-4"/>
+                                                                    <div>
+                                                                        <h5>Tu orden consiste en: </h5>
+
+                                                                        <section id="detallesT" th:with="facturaDetalles=${detallesT[pedido.idFactura]}">
+                                                                            <div th:each="detalle : ${facturaDetalles}">
+                                                                                <div class="row">
+                                                                                    <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                                                                        <a th:href="@{/platillo/}+${detalle.platillo.id_platillo}">
+                                                                                            <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                                                                                                <img th:src="@{${detalle.platillo.rutaImagen}}" class="rounded img-fluid w-100" th:alt="${detalle.platillo.nombre}"/>
+                                                                                            </div>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                    <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                                                                        <!-- Data -->
+                                                                                        <h4>[[${detalle.platillo.nombre}]]</h4>
+                                                                                        <h5>¿Tiene algún cambio? </h5>
+                                                                                        <h5 th:if="${!detalle.detalle.isEmpty}">Si</h5>
+                                                                                        <h5 th:if="${detalle.detalle.isEmpty}">No</h5>
+                                                                                        <h6>Precio unitario: ₡[[${detalle.platillo.precio}]]</h6>
+                                                                                        <h6>Cantidad: [[${detalle.cantidad}]]</h6>
+                                                                                        <!-- Data -->
+                                                                                    </div>
+                                                                                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                                                                        <p class="text-start text-md-center">
+                                                                                            <strong>₡[[${detalle.platillo.precio*detalle.cantidad}]]</strong>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <hr class="my-4"/> <!--th:if="${listaTotal != 1}"-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </section>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </section>
     </body>

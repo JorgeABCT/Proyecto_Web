@@ -5,18 +5,27 @@
 package com.DosChingones.controller;
 
 import com.DosChingones.domain.Categoria;
+import com.DosChingones.domain.Detalle;
+import com.DosChingones.domain.Factura;
 import com.DosChingones.domain.Platillo;
 import com.DosChingones.domain.Rol;
 import com.DosChingones.domain.Usuario;
 import com.DosChingones.service.BebidaService;
 import com.DosChingones.service.CategoriaService;
+import com.DosChingones.service.DetalleService;
+import com.DosChingones.service.FacturaService;
 import com.DosChingones.service.FirebaseStorageService;
 import com.DosChingones.service.ImagenService;
 import com.DosChingones.service.PlatilloService;
 import com.DosChingones.service.RolService;
 import com.DosChingones.service.UsuarioService;
 import com.google.firebase.internal.FirebaseService;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,7 +93,7 @@ public class AdminController {
         categoria = categoriaService.getCategoria(categoria);
         model.addAttribute("categoria", categoria);
         String nombre = "Dos Chingones - Modificar - ";
-        nombre+= categoria.getNombre();
+        nombre += categoria.getNombre();
         model.addAttribute("title", nombre);
         return "/admin/modificarCategoria";
     }
@@ -125,7 +134,7 @@ public class AdminController {
         model.addAttribute("platillo", platillo);
         model.addAttribute("categorias", categorias);
         String nombre = "Dos Chingones - Modificar - ";
-        nombre+= platillo.getNombre();
+        nombre += platillo.getNombre();
         model.addAttribute("title", nombre);
         return "/admin/modificarPlatillo";
     }
@@ -175,7 +184,7 @@ public class AdminController {
         usuario = usuarioService.getUsuario(usuario);
         model.addAttribute("usuario", usuario);
         String nombre = "Dos Chingones - Modificar - ";
-        nombre+= usuario.getNombre();
+        nombre += usuario.getNombre();
         model.addAttribute("title", nombre);
         return "/admin/modificarUsuario";
     }
@@ -198,5 +207,60 @@ public class AdminController {
         rol = rolService.getRol(rol);
         rolService.delete(rol);
         return "redirect:/admin/listadoUsuarios";
+    }
+
+    @Autowired
+    private FacturaService facturaService;
+
+    @Autowired
+    private DetalleService detalleService;
+
+    @GetMapping("/listadoPedidos")
+    public String listadoPedidos(Model model) {
+        String nombre = "Dos Chingones - Listado Pedidos";
+        model.addAttribute("title", nombre);
+
+        var listaPedidos = facturaService.getFacturasActivas();
+
+        Map<Long, List<Detalle>> detallesPorFactura = new HashMap<>();
+
+        for (Factura factura : listaPedidos) {
+            List<Detalle> detalles = detalleService.getDetallesDeFactura(factura.getIdFactura());
+            detallesPorFactura.put(factura.getIdFactura(), detalles);
+        }
+
+        model.addAttribute("detalles", detallesPorFactura);
+        model.addAttribute("totalItems", listaPedidos.size());
+        model.addAttribute("items", listaPedidos);
+
+        var listaPedidosT = facturaService.getFacturasTerminadas();
+
+        Map<Long, List<Detalle>> detallesPorFacturaT = new HashMap<>();
+
+        for (Factura factura : listaPedidosT) { // Aquí deberías usar listaPedidosT en lugar de listaPedidos
+            List<Detalle> detalles = detalleService.getDetallesDeFactura(factura.getIdFactura());
+            detallesPorFacturaT.put(factura.getIdFactura(), detalles);
+        }
+
+        model.addAttribute("detallesT", detallesPorFacturaT); // Aquí cambia a detallesPorFacturaT
+        model.addAttribute("pedidosT", listaPedidosT);
+
+        return "/admin/listadoPedidos";
+    }
+
+    @PostMapping("/pedido/guardar")
+    public String cambiarEstado(Model model, @RequestParam("OpcionesEntrega") int opciones, @RequestParam("idFactura") Long ID) {
+        System.out.println("Probando si llego la opcion: " + opciones + "\nID: " + ID);
+        Factura factura = facturaService.getFacturaPorID(ID);
+        factura.setEstado(opciones);
+        facturaService.save(factura);
+        return "redirect:/admin/listadoPedidos";
+    }
+
+    @GetMapping("/pedido/eliminar/{idFactura}")
+    public String eliminarFactura(Factura factura) {
+        factura = facturaService.getFactura(factura);
+        facturaService.delete(factura);
+        return "redirect:/admin/listadoPedidos";
     }
 }

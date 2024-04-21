@@ -4,15 +4,23 @@
  */
 package com.DosChingones.controller;
 
+import com.DosChingones.dao.DetalleDao;
+import com.DosChingones.dao.FacturaDao;
+import com.DosChingones.dao.PlatilloDao;
 import com.DosChingones.domain.Item;
 import com.DosChingones.domain.Platillo;
 import com.DosChingones.service.ItemService;
 import com.DosChingones.service.PlatilloService;
+import com.DosChingones.service.UsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,12 +65,12 @@ public class CarritoController {
     }
 
     @GetMapping("/agregar/{id_platillo}")
-    public ModelAndView agregarItem(Model model, @PathVariable("id_platillo") Long id_platillo) {
+    public ModelAndView agregarItem(Model model, @PathVariable("id_platillo") Long idPlatillo) {
         System.out.println("Llego aca por lo menos");
         Platillo getPlatillo = new Platillo();
-        getPlatillo.setId_platillo(id_platillo);
+        getPlatillo = platilloService.getPlatilloPorID(idPlatillo);
         Item item = new Item(getPlatillo);
-        Item item2 = itemService.get(item);
+        Item item2 = itemService.getNoEsp(item);
         if (item2 == null) {//No existe el producto en el carrito
             Platillo platillo = platilloService.getPlatillo(item);
             item2 = new Item(platillo);
@@ -85,17 +93,14 @@ public class CarritoController {
         return new ModelAndView("/menu/fragmentos_M :: overlayAgregadoCarrito");
     }
 
-    @PostMapping("/agregarV/{id_platillo}")
-    public String agregarAlCarrito(@PathVariable("id_platillo") Long idPlatillo,
-            @RequestParam("CambiosPlatillo") String cambiosPlatillo,
-            HttpServletRequest request, Model model) {
-        /*System.out.println("ID del platillo: " + idPlatillo);
-        System.out.println("Cambios en el platillo: " + cambiosPlatillo);*/
+    @GetMapping("/agregarV/{idPlatillo}/{detalle}")
+    public ModelAndView agregarCarritoConDetalle(@PathVariable("idPlatillo") Long idPlatillo, @PathVariable("detalle") String cambiosPlatillo, Model model) {
+        System.out.println("Si llegaron los cambios. \nPor ejemplo: " + idPlatillo + "\nDetalle: " + cambiosPlatillo);
         Platillo getPlatillo = new Platillo();
         getPlatillo.setId_platillo(idPlatillo);
         Item item = new Item(getPlatillo);
         item.setDetalle(cambiosPlatillo);
-        Item item2 = itemService.get(item);
+        Item item2 = itemService.getNoEsp(item);
         if (item2 == null) {//No existe el producto en el carrito
             Platillo platillo = platilloService.getPlatillo(item);
             item2 = new Item(platillo);
@@ -112,12 +117,43 @@ public class CarritoController {
             totalCarrito += i.getCantidad();
             carritoTotalVenta += (i.getCantidad() * i.getPrecio());
         }
-        boolean mostrarModal = true;
-        model.addAttribute("mostrarModal", mostrarModal);
         model.addAttribute("listaItems", lista);
         model.addAttribute("listaTotal", totalCarrito);
         model.addAttribute("carritoTotal", carritoTotalVenta);
-        
-        return "redirect/platillo/"+idPlatillo;
+
+        return new ModelAndView("/menu/fragmentos_M :: overlayAgregadoCarrito");
+    }
+
+    @GetMapping("/eliminar/{id_item}")
+    public String eliminarItem(@PathVariable("id_item") Long idPlatillo, Model model) {
+        Platillo getPlatillo = new Platillo();
+        Item item = new Item(getPlatillo);
+        item.setIDitem(idPlatillo);
+        Item item2 = itemService.get(item);
+        itemService.delete(item2);
+        return "redirect:/carrito/listado";
+    }
+
+    @PostMapping("/actualizar/{idPlatillo}")
+    public String actualizarItem(@PathVariable("idPlatillo") Long idPlatillo, @ModelAttribute("item") Item item, Model model) {
+        System.out.println("Si se consiguió el Mapping. Mira: \nCantidad: " + item.getCantidad() + "\nDetalle: " + item.getDetalle() + "\nItemID: " + item.getIDitem() + "\nNombre: " + item.getNombre());
+        Item item2 = new Item();
+        item2.setIDitem(idPlatillo);
+        item2 = itemService.get(item);
+        itemService.update(item2, item.getDetalle(), item.getCantidad());
+        return "redirect:/carrito/listado";
+    }
+
+    @GetMapping("/facturar")
+    public String facturarCarrito() {
+        itemService.facturar();
+        return "redirect:/carrito/compra_satisfactoria";
+    }
+
+    @GetMapping("/compra_satisfactoria")
+    public String gracias(Model model) {
+        String nombre = "Dos Chingones - Compra Satisfactoria";
+        model.addAttribute("title", nombre);
+        return "/carrito/ThxCompra";
     }
 }

@@ -161,7 +161,7 @@ public class IndexController {
         model.addAttribute("platillos", lista);
         String nombre = "Dos Chingones - Bebidas";
         model.addAttribute("title", nombre);
-        return "/menu/bebidas";
+        return "/menu/menu";
     }
     
     @GetMapping("/ofertas")

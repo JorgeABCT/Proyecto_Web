@@ -18,13 +18,15 @@ public interface ItemService {
     
     public List<Item> gets();
     
+    public Item getNoEsp(Item item);
+    
     public Item get(Item item);
     
     public void save(Item item);
     
     public void delete(Item item);
     
-    public void update(Item item);
+    public void update(Item item, String detalle, int Cantidad);
     
     public void facturar();
 }

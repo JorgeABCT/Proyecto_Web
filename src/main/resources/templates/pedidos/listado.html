@@ -12,7 +12,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <header th:replace="~{layout/layout :: header}"/>
+        
         <section th:replace="~{pedidos/fragmentos_P :: listadoPedidos}"/>
+        <section th:replace="~{pedidos/fragmentos_P :: listadoPedidosT}"/>
+        
+        
         <header th:replace="~{layout/layout :: footer}"/>
     </body>
 </html>

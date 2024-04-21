@@ -83,9 +83,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <div class="card-body text-center" sec:authorize='isAuthenticated()'>
                             <input type="hidden" name="id_platillo" id="idDelPlatillo" th:value="${platillo.id_platillo}"/>
                             <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar al carrito</button>
-                            <div id="agregadoCarrito">
-                                
-                            </div>
+                            <div id="agregadoCarrito"></div>
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -112,27 +110,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </div>
                 </div>
                 <div th:if="${platillos == null or platillos.empty}">
-                    No hay platillos disponibles en este moment
+                    No hay platillos disponibles en este momento
                 </div>
             </div>
         </section>
 
         <section th:fragment="overlayAgregadoCarrito">
-            <div class="modal fade show" id="agregadoCarrito" tabindex="-1" aria-labelledby="agregarCarritoLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="agregarCarritoLabel">Platillo añadido</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ¡Se agregó con éxito el platillo en el carrito!
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Seguir</button>
-                        </div>
-                    </div>
-                </div>
+            <div>
+                <!-- Si se metio -->
             </div>
         </section>
 

@@ -12,7 +12,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <header th:replace="~{layout/layout :: header}"/>
-        <section th:replace="~{pedidos/fragmentos_P :: listadoPedidos}"/>
+
+        <div class='text-center'>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <i class="bi bi-bag-heart-fill h1"></i>
+            <h2>¡Gracias a tu compra!<br/>¡Tu deliciosa orden llegará en muy poco!</h2>
+            <br/>
+            <a th:href="@{/}"><button type="button" class="btn btn-danger btn-lg"> Volver al Inicio </button></a>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+        </div>
+
         <header th:replace="~{layout/layout :: footer}"/>
     </body>
 </html>
