@@ -76,11 +76,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
             </div>
             <div class="text-center py-4">
-                <h2>¡Bienvenido a Dos Chingones!</h2>
+                <h2>[[#{index.bienvenido}]]</h2>
             </div>
         </div>
         <div class="text-center py-2">
-            <h3>Nuestro menu</h3>
+            <h3>[[#{index.menu}]]</h3>
         </div>
         <!--<div class='d-flex justify-content-center text-center grid gap-3'>
             <button type="button" class="btn btn-primary btn-lg">Menu Regular</button>
@@ -95,7 +95,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <section th:fragment="listadoPlatillosR" id="platillosR">
             <div class="container">
                 <div class="row row-cols-2" >
-                    <h2 class="inline">Menu regular</h2>
+                    <h2 class="inline">[[#{index.menuR}]]</h2>
                     <div id="resultsBlock"></div>
                 </div>
                 <div class="row row-cols-3  ms-4" 
@@ -118,7 +118,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </ul>
                         <div class="card-body text-center" sec:authorize='isAuthenticated()'>
                             <input type="hidden" name="id_platillo" id="idDelPlatillo" th:value="${platillo.id_platillo}"/>
-                            <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar al carrito</button>
+                            <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">[[#{boton.agregar}]]</button>
                             <div id="agregadoCarrito">
 
                             </div>
@@ -126,32 +126,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Platillo añadido</h1>
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">[[#{modal.agregado}]]</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body d-flex justify-content-center">
-                                            <h3>¡Se agregó con éxito el platillo en el carrito!</h3>
+                                            <h3>[[#{modal.descripcion}]]</h3>
                                         </div>
                                         <div class="d-flex justify-content-center">
                                             <h2><i class="bi bi-cart-check-fill h1"></i></h2>
                                         </div>
                                         <div class="modal-footer d-flex justify-content-center">
-                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Seguir</button>
+                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">[[#{modal.boton}]]</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
-                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
+                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">[[#{boton.iniciar}]]</button></a>
                         </div>
                     </div>
                 </div>
                 <div class='d-flex justify-content-center text-center'>
-                    <button type="button" class="btn btn-primary btn-lg"><a class="dropdown-item" th:href="@{/menu_regular}">Ver todo el Menu Regular</a></button>
+                    <button type="button" class="btn btn-primary btn-lg"><a class="dropdown-item" th:href="@{/menu_regular}">[[#{index.verMR}]]</a></button>
                 </div>
                 <div th:if="${platillosR == null or platillosR.empty}">
-                    No hay platillos disponibles en este momento
+                    [[#{index.vacioM}]]
                 </div>
             </div>
         </section>
@@ -159,7 +159,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <section th:fragment="listadoPlatillosV" id="platillosV">
             <div class="container">
                 <div class="row row-cols-2" >
-                    <h2 class="inline">Menu vegano</h2>
+                    <h2 class="inline">[[#{index.menuV}]]</h2>
                     <div id="resultsBlock"></div>
                 </div>
                 <div class="row row-cols-3 ms-4" 
@@ -182,7 +182,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </ul>
                         <div class="card-body text-center" sec:authorize='isAuthenticated()'>
                             <input type="hidden" name="id_platillo" id="idDelPlatillo" th:value="${platillo.id_platillo}"/>
-                            <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar al carrito</button>
+                            <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">[[#{boton.agregar}]]</button>
                             <div id="agregadoCarrito">
 
                             </div>
@@ -190,32 +190,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Platillo añadido</h1>
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">[[#{modal.agregado}]]</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body d-flex justify-content-center">
-                                            <h3>¡Se agregó con éxito el platillo en el carrito!</h3>
+                                            <h3>[[#{modal.descripcion}]]</h3>
                                         </div>
                                         <div class="d-flex justify-content-center">
                                             <h2><i class="bi bi-cart-check-fill h1"></i></h2>
                                         </div>
                                         <div class="modal-footer d-flex justify-content-center">
-                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Seguir</button>
+                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">[[#{modal.boton}]]</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
-                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
+                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">[[#{boton.iniciar}]]</button></a>
                         </div>
                     </div>
                 </div>
                 <div class='d-flex justify-content-center text-center'>
-                    <button type="button" class="btn btn-primary btn-lg"><a class="dropdown-item" th:href="@{/menu_vegano}">Ver todo el Menu Vegano</a></button>
+                    <button type="button" class="btn btn-primary btn-lg"><a class="dropdown-item" th:href="@{/menu_vegano}">[[#{index.verMV}]]</a></button>
                 </div>
                 <div th:if="${platillosV == null or platillosV.empty}">
-                    No hay platillos disponibles en este momento
+                    [[#{index.vacioM}]]
                 </div>
             </div>
         </section>
@@ -223,7 +223,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <section th:fragment="listadoPlatillosB" id="platillosB">
             <div class="container">
                 <div class="row row-cols-2" >
-                    <h2 class="inline">Bebidas</h2>
+                    <h2 class="inline">[[#{index.bebidas}]]</h2>
                     <div id="resultsBlock"></div>
                 </div>
                 <div class="row row-cols-3 ms-4" 
@@ -246,7 +246,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </ul>
                         <div class="card-body text-center" sec:authorize='isAuthenticated()'>
                             <input type="hidden" name="id_platillo" id="idDelPlatillo" th:value="${platillo.id_platillo}"/>
-                            <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar al carrito</button>
+                            <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">[[#{boton.agregar}]]</button>
                             <div id="agregadoCarrito">
 
                             </div>
@@ -254,32 +254,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Platillo añadido</h1>
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">[[#{modal.agregado}]]</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body d-flex justify-content-center">
-                                            <h3>¡Se agregó con éxito el platillo en el carrito!</h3>
+                                            <h3>[[#{modal.descripcion}]]</h3>
                                         </div>
                                         <div class="d-flex justify-content-center">
                                             <h2><i class="bi bi-cart-check-fill h1"></i></h2>
                                         </div>
                                         <div class="modal-footer d-flex justify-content-center">
-                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Seguir</button>
+                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">[[#{modal.boton}]]</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
-                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
+                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">[[#{boton.iniciar}]]</button></a>
                         </div>
                     </div>
                 </div>
                 <div class='d-flex justify-content-center text-center'>
-                    <button type="button" class="btn btn-primary btn-lg"><a class="dropdown-item" th:href="@{/bebidas}">Ver todas las Bebidas</a></button>
+                    <button type="button" class="btn btn-primary btn-lg"><a class="dropdown-item" th:href="@{/bebidas}">[[#{index.verB}]]</a></button>
                 </div>
                 <div th:if="${platillosB == null or platillosB.empty}">
-                    No hay bebidas disponibles en este momento.
+                    [[#{index.vacioB}]]
                 </div>
             </div>
         </section>

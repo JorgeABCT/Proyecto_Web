@@ -50,35 +50,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <h4>[[${platillo.categoria.nombre}]]</h4>
                     <h2>₡[[${platillo.precio}]]</h2>
                     <h5 class="text-justify">[[${platillo.descripcion}]]</h5>
-                    <h4>¿La bebida es natural?</h4><h4 th:text="${platillo.vegano} ? 'Si' : 'No'"/>
+                    <h4>[[#{bebida.natural}]]</h4><h5 th:if="${platillo.vegano}">[[#{si}]]</h5><h5 th:if="${!platillo.vegano}">[[#{no}]]</h5>
                     <br/>
-                    <h4>¿Quiere hacer algún cambio?</h4>
+                    <h4>[[#{carrito.cambio}]]</h4>
                     <textarea class="form-control" name="CambiosPlatillo" rows="2" style="resize: none"></textarea>
                     <br/>
                     <input type="hidden" name="id_platillo" id="idDelPlatillo" th:value="${platillo.id_platillo}"/>
-                    <button class="btn btn-danger btn-lg" th:onclick="addCartVisualizar([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar al carrito</button>
+                    <button class="btn btn-danger btn-lg" th:onclick="addCartVisualizar([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">[[#{boton.agregar}]]</button>
                     <div id="agregadoCarrito"></div>
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Bebida añadida</h1>
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">[[#{carrito.bebida.agregada}]]</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body d-flex justify-content-center">
-                                    <h3>¡Se agregó con éxito la bebida en el carrito!</h3>
+                                    <h3>[[#{carrito.bebida.descripcion}]]</h3>
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <h2><i class="bi bi-cart-check-fill h1"></i></h2>
                                 </div>
                                 <div class="modal-footer d-flex justify-content-center">
-                                    <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Seguir</button>
+                                    <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">[[#{modal.boton}]]</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
-                        <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
+                        <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">[[#{boton.iniciar}]]</button></a>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <h4>[[${platillo.categoria.nombre}]]</h4>
                     <h2>₡[[${platillo.precio}]]</h2>
                     <h5 class="text-justify">[[${platillo.descripcion}]]</h5>
-                    <h4>¿Es una opcion vegana?</h4><h4 th:text="${platillo.vegano} ? 'Si' : 'No'"/>
+                    <h4>[[#{platillo.vegano}]]</h4><h5 th:if="${platillo.vegano}">[[#{si}]]</h5><h5 th:if="${!platillo.vegano}">[[#{no}]]</h5>
                     <br/>
                     <h4>¿Quiere hacer algún cambio?</h4>
                     <textarea class="form-control" name="CambiosPlatillo" rows="2" style="resize: none"></textarea>
@@ -106,23 +106,23 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Platillo añadido</h1>
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">[[#{modal.agregado}]]</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body d-flex justify-content-center">
-                                    <h3>¡Se agregó con éxito la bebida en el carrito!</h3>
+                                    <h3>[[#{modal.descripcion}]]</h3>
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <h2><i class="bi bi-cart-check-fill h1"></i></h2>
                                 </div>
                                 <div class="modal-footer d-flex justify-content-center">
-                                    <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Seguir</button>
+                                    <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">[[#{modal.boton}]]</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
-                        <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
+                        <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">[[#{boton.iniciar}]]</button></a>
                     </div>
                 </div>
             </div>
@@ -308,20 +308,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
         <section th:fragment="listadoCarrito2" id="items">
             <div class="container">
-                <h2>Tu carrito de compras</h2>
+                <h2>[[#{carrito}]]</h2>
                 <section class="h-100">
                     <div class="container py-2">
                         <div class="row d-flex justify-content-center my-4">
                             <div class="col-md-8">
                                 <div class="card mb-4">
                                     <div class="card-header py-3" th:if="${listaTotal == 0}">
-                                        <span>No hay platillos agregados en el carrito</span>
+                                        <span>[[#{carrito.vacio}]]</span>
                                     </div>
                                     <div class="card-header py-3" th:if="${listaTotal == 1}">
-                                        <h5 class="mb-0">[[${listaTotal}]] platillo en el carrito</h5>
+                                        <h5 class="mb-0">[[${listaTotal}]] [[#{carrito.uno}]]</h5>
                                     </div>
                                     <div class="card-header py-3" th:if="${listaTotal >= 2}">
-                                        <h5 class="mb-0">[[${listaTotal}]] platillos en el carrito</h5>
+                                        <h5 class="mb-0">[[${listaTotal}]] [[#{carrito.dos}]]</h5>
                                     </div>
                                     <div class="card-body">
                                         <div class="row" th:each="platillo : ${items}">
@@ -335,42 +335,42 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                             <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
                                                 <!-- Data -->
                                                 <h4>[[${platillo.nombre}]]</h4>
-                                                <h5>¿Tiene algún cambio? </h5>
-                                                <h5 th:if="${!platillo.detalle.isEmpty}">Si</h5>
-                                                <h5 th:if="${platillo.detalle.isEmpty}">No</h5>
-                                                <h6>Precio unitario: ₡[[${platillo.precio}]]</h6>
-                                                <h6>Cantidad: [[${platillo.cantidad}]]</h6>
+                                                <h5>[[#{pedido.cambio}]] </h5>
+                                                <h5 th:if="${!platillo.detalle.isEmpty}">[[#{si}]]</h5>
+                                                <h5 th:if="${platillo.detalle.isEmpty}">[[#{no}]]</h5>
+                                                <h6>[[#{pedido.precioU}]]: ₡[[${platillo.precio}]]</h6>
+                                                <h6>[[#{pedido.cantidad}]]: [[${platillo.cantidad}]]</h6>
                                                 <!-- Data -->
                                             </div>
                                             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                                                 <div class="d-flex mb-4 justify-content-center" style="max-width: 300px">
                                                     <a th:href="@{/carrito/eliminar/}+${platillo.IDitem}"
                                                        class="btn btn-danger">
-                                                        <i class="fas fa-trash"></i> Eliminar
+                                                        <i class="fas fa-trash"></i> [[#{admin.eliminar}]]
                                                     </a>
                                                 </div>
                                                 <div class="d-flex mb-4 justify-content-center" style="max-width: 300px">
                                                     <br/>
-                                                    <button class="btn btn-success" data-bs-toggle="modal" th:data-bs-target="'#exampleModal-' + ${platillo.IDitem}"><i class="fas fa-pencil"></i> Modificar</button>
+                                                    <button class="btn btn-success" data-bs-toggle="modal" th:data-bs-target="'#exampleModal-' + ${platillo.IDitem}"><i class="fas fa-pencil"></i> [[#{admin.modificar}]]</button>
                                                     <div id="agregadoCarrito"></div>
                                                     <div class="modal fade" th:id="'exampleModal-' + ${platillo.IDitem}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header modal-header-success">
-                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar el platillo</h1>
+                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">[[#{carrito.modificar.platillo}]]</h1>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <form th:action="@{/carrito/actualizar/}+${platillo.IDitem}" method="POST" class="was-validated" enctype="multipart/form-data">
                                                                     <div class="modal-body">
-                                                                        <h6>¿Quiere hacer algún cambio?</h6>
+                                                                        <h6>[[#{carrito.cambio}]]</h6>
                                                                         <input type="hidden" name="IDitem" th:value="${platillo.IDitem}"/>
                                                                         <textarea class="form-control" name="detalle" rows="2" style="resize: none" th:text="${platillo.detalle}"></textarea>
                                                                         <br/>
-                                                                        <h6>¿Cuánto quiere llevar?<br/>Si quiere eliminar el platillo, utilice el botón 'Eliminar'.</h6>
+                                                                        <h6>[[#{carrito.llevar1}]]<br/>[[#{carrito.llevar2}]]</h6>
                                                                         <input class="form-control" name="cantidad" required="true" type="number" min="1" max="5" th:value="${platillo.cantidad}"/>
                                                                     </div>
                                                                     <div class="modal-footer d-flex justify-content-center">
-                                                                        <button type="submit" class="btn btn-outline-success"> Modificar </button>
+                                                                        <button type="submit" class="btn btn-outline-success"> [[#{admin.modificar}]] </button>
                                                                     </div>
                                                                 </form>
 
@@ -388,7 +388,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 </div>
                                 <div class="card mb-4 mb-lg-0">
                                     <div class="card-body">
-                                        <p><strong>Se aceptan métodos de pago como: </strong></p>
+                                        <p><strong>[[#{carrito.pagos}]]</strong></p>
                                         <img class="me-2 rounded" width="45px"
                                              src="https://firebasestorage.googleapis.com/v0/b/dos-chingones-b1e2a.appspot.com/o/Logo_Visa.jpg?alt=media&token=3ce5933e-4309-449c-9f5e-36bff38d2903"
                                              alt="Visa" />
@@ -404,30 +404,30 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <div class="col-md-4" th:if="${listaTotal != 0}">
                                 <div class="card mb-4">
                                     <div class="card-header py-3">
-                                        <h5 class="mb-0">Monto a pagar</h5>
+                                        <h5 class="mb-0">[[#{carrito.monto}]]</h5>
                                     </div>
                                     <div class="card-body">
                                         <ul class="list-group list-group-flush">
                                             <li
                                                 class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                                Platillos
+                                                [[#{carrito.platillos}]]
                                                 <span>₡[[${carritoTotal}]]</span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                                Envío
-                                                <span>Gratis</span>
+                                                [[#{carrito.envio}]]
+                                                <span>[[#{carrito.gratis}]]</span>
                                             </li>
                                             <li
                                                 class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                                 <div>
-                                                    <h5><strong>Total a pagar</strong></h5>
+                                                    <h5><strong>[[#{carrito.total}]]</strong></h5>
                                                 </div>
                                                 <h5><span><strong>₡[[${carritoTotal}]]</strong></span></h5>
                                             </li>
                                         </ul>
                                         <a th:href="@{/carrito/facturar}">
                                             <button type="button" class="btn btn-primary btn-lg btn-block">
-                                                Facturar
+                                                [[#{carrito.facturar}]]
                                             </button>
                                         </a>
                                     </div>
