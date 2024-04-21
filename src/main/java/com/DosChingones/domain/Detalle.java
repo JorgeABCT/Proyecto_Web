@@ -49,15 +49,19 @@ public class Detalle implements Serializable{
     @Column(name = "cantidad")
     private int Cantidad; // Cambiado a minúscula, para seguir convención
     
+    @Column(name = "detalle")
+    private String detalle;
+    
     public Detalle(){
         
     }
 
-    public Detalle(Factura factura, Platillo platillo, Double precio, int Cantidad) {
+    public Detalle(Factura factura, Platillo platillo, Double precio, int Cantidad, String detalle) {
         this.factura = factura;
         this.platillo = platillo;
         this.precio = precio;
         this.Cantidad = Cantidad;
+        this.detalle =  detalle;
     }
     
 }

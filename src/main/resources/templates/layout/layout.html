@@ -18,7 +18,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
         <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
         <script th:src="@{/js/rutinas.js}"></script>
-        <link type="text/css" th:src="@{/css/estilos.css}"/>
+        <link rel="stylesheet" th:href="@{/css/estilo.css}"/>
     </head>
     <body>
         <section th:fragment="header">
@@ -40,7 +40,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </ul>
                     </li>
                     <li><a th:href="@{/ofertas}" class="nav-link px-2 link-dark">Ofertas</a></li>
-                    <li sec:authorize='isAuthenticated()'><a href="#" class="nav-link px-2 link-dark">Facturas</a></li>
+                    <li sec:authorize='isAuthenticated()'><a th:href="@{/pedidos/listado}" class="nav-link px-2 link-dark">Mis Pedidos</a></li>
                     <li><a th:href="@{/nosotros}" class="nav-link px-2 link-dark">Sobre Nosotros</a></li>
                     <li class="nav-item dropdown link-dark" sec:authorize="hasAnyRole('ROLE_EMPLEADO', 'ROLE_ADMIN')">
                         <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,6 +53,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                             <li><a class="dropdown-item" th:href="@{/admin/listadoPedidos}">Ver Pedidos</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown link-dark">
+                        <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Idioma</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item"  th:href="@{/(lang=es)}">ES</a></li>
+                            <li><a class="dropdown-item" th:href="@{/(lang=en)}">EN</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <div class="col-md-3 text-end" sec:authorize='!isAuthenticated()'>
                     <a th:href="@{/login}"><button type="button" class="btn btn-outline-danger me-2">Entrar</button></a>
@@ -62,16 +69,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <a class="text-decoration-none text-danger" th:href="@{/carrito/listado}"><i class="bi bi-cart-fill"></i> Carrito</a>
                 </div>
                 <div class="col-md-1 text-center" sec:authorize='isAuthenticated()'>
-                        <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-circle h2"></i>
-                            <span sec:authentication='name'>Jhon</span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" th:href="@{/cuenta/modifica}">Modificar Cuenta</a></li>
-                            <form method='post' th:action='@{/logout}'>
-                                <li><a class="dropdown-item"><button class="shadow-none decoration-none" type="submit" style="border: none; padding: 0; background: none">Cerrar cuenta</button></a></li>
-                            </form>
-                        </ul>
+                    <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle h2"></i>
+                        <span sec:authentication='name'>Jhon</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/cuenta/modifica}">Modificar Cuenta</a></li>
+                        <form method='post' th:action='@{/logout}'>
+                            <li><a class="dropdown-item"><button class="shadow-none decoration-none" type="submit" style="border: none; padding: 0; background: none">Cerrar cuenta</button></a></li>
+                        </form>
+                    </ul>
                 </div>
             </header>
         </section>

@@ -37,7 +37,7 @@ public class Factura implements Serializable {
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
-    private Date Fecha;
+    private Date fecha;
     private double total;
     private int estado;
 
@@ -48,9 +48,13 @@ public class Factura implements Serializable {
 4. Cancelado
      */
 
+    public Factura(){
+        
+    }
+    
     public Factura(Usuario usuario) {
         this.usuario = usuario;
-        this.Fecha = Calendar.getInstance().getTime();
+        this.fecha = Calendar.getInstance().getTime();
         this.estado = 1; /*Inicia en preparacion*/
     }
     

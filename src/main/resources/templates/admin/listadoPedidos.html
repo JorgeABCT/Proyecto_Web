@@ -12,7 +12,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <header th:replace="~{layout/layout :: header}"/>
-        <section th:replace="~{pedidos/fragmentos_P :: listadoPedidos}"/>
+        
+        <!--<section th:replace="~{admin/fragmentos_Admin :: botonesAgregarPedido}"/>-->
+        <!--<section th:replace="~{admin/fragmentos_Admin :: agregarPedido}"/>-->
+        <section th:replace="~{admin/fragmentos_Admin :: listadoPedidos}"/>
+        <section th:replace="~{admin/fragmentos_Admin :: listadoPedidosTerminados}"/>
         <header th:replace="~{layout/layout :: footer}"/>
     </body>
 </html>

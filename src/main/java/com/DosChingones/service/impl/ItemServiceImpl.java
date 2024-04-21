@@ -90,7 +90,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void update(Item item, String detalle, int Cantidad) {
         for (Item i : listaItems) {
-            if (this.get(item) == i) {
+            if (item.getIDitem() == i.getIDitem()) {
                 i.setDetalle(detalle);
                 i.setCantidad(Cantidad);
                 break;
@@ -140,7 +140,7 @@ public class ItemServiceImpl implements ItemService {
                     + " Total: " + i.getPrecio() * i.getCantidad());
 
             Platillo getPlatillo = platilloService.getPlatilloPorID(i.getId_platillo());
-            Detalle venta = new Detalle(factura, getPlatillo, i.getPrecio(), i.getCantidad());
+            Detalle venta = new Detalle(factura, getPlatillo, i.getPrecio(), i.getCantidad(), i.getDetalle());
             detalleDao.save(venta);
             total += i.getPrecio() * i.getCantidad();
         }

@@ -93,49 +93,6 @@ public class CarritoController {
         return new ModelAndView("/menu/fragmentos_M :: overlayAgregadoCarrito");
     }
 
-    /*    @PostMapping("/agregarV/{id_platillo}")
-    public String agregarAlCarrito(@PathVariable("id_platillo") Long idPlatillo,
-            @RequestParam("CambiosPlatillo") String cambiosPlatillo,
-            HttpServletRequest request, Model model) {
-        /*System.out.println("ID del platillo: " + idPlatillo);
-        System.out.println("Cambios en el platillo: " + cambiosPlatillo);
-        Platillo getPlatillo = new Platillo();
-        getPlatillo.setId_platillo(idPlatillo);
-        Item item = new Item(getPlatillo);
-        item.setDetalle(cambiosPlatillo);
-        Item item2 = itemService.get(item);
-        if (item2 == null) {//No existe el producto en el carrito
-            Platillo platillo = platilloService.getPlatillo(item);
-            item2 = new Item(platillo);
-            item2.setDetalle(cambiosPlatillo);
-        }
-
-        itemService.save(item2);
-
-        var lista = itemService.gets();
-        var totalCarrito = 0;
-        var carritoTotalVenta = 0;
-
-        for (Item i : lista) {
-            totalCarrito += i.getCantidad();
-            carritoTotalVenta += (i.getCantidad() * i.getPrecio());
-        }
-        boolean mostrarModal = true;
-        model.addAttribute("mostrarModal", mostrarModal);
-        model.addAttribute("listaItems", lista);
-        model.addAttribute("listaTotal", totalCarrito);
-        model.addAttribute("carritoTotal", carritoTotalVenta);
-
-        return "redirect/platillo/" + idPlatillo;
-    }
-     */
-
- /*@GetMapping("/agregarV")
-    public ModelAndView agregarCarritoConDetalle(@RequestParam Map<String, String> prueba,
-            HttpServletRequest request, Model model){
-        System.out.println("Si llegaron los cambios. \nPor ejemplo:"+prueba);
-        return null;
-    }*/
     @GetMapping("/agregarV/{idPlatillo}/{detalle}")
     public ModelAndView agregarCarritoConDetalle(@PathVariable("idPlatillo") Long idPlatillo, @PathVariable("detalle") String cambiosPlatillo, Model model) {
         System.out.println("Si llegaron los cambios. \nPor ejemplo: " + idPlatillo + "\nDetalle: " + cambiosPlatillo);
@@ -177,11 +134,6 @@ public class CarritoController {
         return "redirect:/carrito/listado";
     }
 
-    /*@PostMapping("/actualizar/{idPlatillo}")
-    public String actualizarItem(@PathVariable("idPlatillo") Long idPlatillo, @ModelAttribute("item") Item item, Model model ){
-        System.out.println("Si se consiguio el Mapping. mira: \nCantidad: "+item.getCantidad()+"\nDetalle: "+item.getDetalle());
-        return "redirect:/carrito/listado";
-    }*/
     @PostMapping("/actualizar/{idPlatillo}")
     public String actualizarItem(@PathVariable("idPlatillo") Long idPlatillo, @ModelAttribute("item") Item item, Model model) {
         System.out.println("Si se consiguió el Mapping. Mira: \nCantidad: " + item.getCantidad() + "\nDetalle: " + item.getDetalle() + "\nItemID: " + item.getIDitem() + "\nNombre: " + item.getNombre());
