@@ -96,11 +96,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <h5 class="text-justify">[[${platillo.descripcion}]]</h5>
                     <h4>[[#{platillo.vegano}]]</h4><h5 th:if="${platillo.vegano}">[[#{si}]]</h5><h5 th:if="${!platillo.vegano}">[[#{no}]]</h5>
                     <br/>
-                    <h4>¿Quiere hacer algún cambio?</h4>
+                    <h4>[[#{carrito.cambio}]]</h4>
                     <textarea class="form-control" name="CambiosPlatillo" rows="2" style="resize: none"></textarea>
                     <br/>
                     <input type="hidden" name="id_platillo" id="idDelPlatillo" th:value="${platillo.id_platillo}"/>
-                    <button class="btn btn-danger btn-lg" th:onclick="addCartVisualizar([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar al carrito</button>
+                    <button class="btn btn-danger btn-lg" th:onclick="addCartVisualizar([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">[[#{boton.agregar}]]</button>
                     <div id="agregadoCarrito"></div>
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
