@@ -41,7 +41,7 @@ public class CuentaController {
     @GetMapping("/nuevo")
     private String nuevo(Model model) {
         model.addAttribute("usuario", new Usuario());
-        String nombre = "Dos Chingones - Nueva Cuenta";
+        String nombre = "Dos Chingones";
         model.addAttribute("title", nombre);
         return "/usuario/nuevoU";
     }
@@ -60,7 +60,7 @@ public class CuentaController {
             UserDetails userDetails = (UserDetails) auth.getPrincipal();
             Usuario usuario = usuarioService.getUsuarioPorUsername(userDetails.getUsername());
             model.addAttribute("usuario", usuario);
-            String nombre = "Dos Chingones - Modificar";
+            String nombre = "Dos Chingones - Edit";
             model.addAttribute("title", nombre);
             return "/usuario/modificaU";
         } else {

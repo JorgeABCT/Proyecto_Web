@@ -106,7 +106,7 @@ public class IndexController {
         model.addAttribute("platillosR", listaR);
         model.addAttribute("platillosV", listaV);
         model.addAttribute("platillosB", listaB);
-        model.addAttribute("title", "Dos Chingones - Inicio");
+        model.addAttribute("title", "Dos Chingones");
         return "/index";
     }
 
@@ -124,9 +124,9 @@ public class IndexController {
         String nombreMenu = "Menu Regular";
         model.addAttribute("MenuNombre", nombreMenu);
         model.addAttribute("platillos", lista);
-        String nombre = "Dos Chingones - Menu Regular";
+        String nombre = "Dos Chingones - Menu";
         model.addAttribute("title", nombre);
-        return "/menu/menu";
+        return "/menu/menu_R";
     }
 
     @GetMapping("/menu_vegano")
@@ -143,9 +143,9 @@ public class IndexController {
         String nombreMenu = "Menu Vegano";
         model.addAttribute("MenuNombre", nombreMenu);
         model.addAttribute("platillos", lista);
-        String nombre = "Dos Chingones - Menu Vegano";
+        String nombre = "Dos Chingones - Menu";
         model.addAttribute("title", nombre);
-        return "/menu/menu";
+        return "/menu/menu_V";
     }
 
     @GetMapping("/bebidas")
@@ -162,9 +162,9 @@ public class IndexController {
         String nombreMenu = "Bebidas";
         model.addAttribute("MenuNombre", nombreMenu);
         model.addAttribute("platillos", lista);
-        String nombre = "Dos Chingones - Bebidas";
+        String nombre = "Dos Chingones - Menu";
         model.addAttribute("title", nombre);
-        return "/menu/menu";
+        return "/menu/bebidas";
     }
 
     @GetMapping("/ofertas")
@@ -181,7 +181,7 @@ public class IndexController {
         String nombreMenu = "Ofertas";
         model.addAttribute("MenuNombre", nombreMenu);
         model.addAttribute("platillos", lista);
-        String nombre = "Dos Chingones - Ofertas";
+        String nombre = "Dos Chingones - Menu";
         model.addAttribute("title", nombre);
         return "/menu/menu";
     }
@@ -189,7 +189,7 @@ public class IndexController {
     @GetMapping("/login")
     public String Login(Model model, Usuario usuario) {
         model.addAttribute("usuario", usuario);
-        String nombre = "Dos Chingones - Inicio de sesión";
+        String nombre = "Dos Chingones";
         model.addAttribute("title", nombre);
         return "/usuario/inicioU";
     }
@@ -211,7 +211,7 @@ public class IndexController {
 
     @GetMapping("/nosotros")
     public String SobreNosotros(Model model) {
-        String nombre = "Dos Chingones - Nosotros";
+        String nombre = "Dos Chingones";
         model.addAttribute("title", nombre);
         return "nosotros";
     }
