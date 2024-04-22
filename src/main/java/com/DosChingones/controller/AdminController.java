@@ -71,7 +71,7 @@ public class AdminController {
     private String listadoCategorias(Model model, Categoria categoria) {
         var categorias = categoriaService.getCategorias(false);
         model.addAttribute("categorias", categorias);
-        String nombre = "Dos Chingones - Listado Categorias";
+        String nombre = "Dos Chingones - Admin";
         model.addAttribute("title", nombre);
         return "/admin/listadoCategoria";
     }
@@ -92,7 +92,7 @@ public class AdminController {
     public String modificarCategoria(Categoria categoria, Model model) {
         categoria = categoriaService.getCategoria(categoria);
         model.addAttribute("categoria", categoria);
-        String nombre = "Dos Chingones - Modificar - ";
+        String nombre = "Dos Chingones - Edit - ";
         nombre += categoria.getNombre();
         model.addAttribute("title", nombre);
         return "/admin/modificarCategoria";
@@ -104,7 +104,7 @@ public class AdminController {
         model.addAttribute("platillos", platillos);
         var categorias = categoriaService.getCategorias(false);
         model.addAttribute("categorias", categorias);
-        String nombre = "Dos Chingones - Listado Platillos";
+        String nombre = "Dos Chingones - Admin";
         model.addAttribute("title", nombre);
         return "/admin/listadoPlatillos";
     }
@@ -133,7 +133,7 @@ public class AdminController {
         platillo = platilloService.getPlatillo(platillo);
         model.addAttribute("platillo", platillo);
         model.addAttribute("categorias", categorias);
-        String nombre = "Dos Chingones - Modificar - ";
+        String nombre = "Dos Chingones - Edit - ";
         nombre += platillo.getNombre();
         model.addAttribute("title", nombre);
         return "/admin/modificarPlatillo";
@@ -146,7 +146,7 @@ public class AdminController {
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("usuario", new Usuario());
         model.addAttribute("roles", roles);
-        String nombre = "Dos Chingones - Listado Usuarios";
+        String nombre = "Dos Chingones - Admin";
         model.addAttribute("title", nombre);
         return "/admin/listadoUsuarios";
     }
@@ -183,7 +183,7 @@ public class AdminController {
     public String modificarUsuario(Usuario usuario, Model model) {
         usuario = usuarioService.getUsuario(usuario);
         model.addAttribute("usuario", usuario);
-        String nombre = "Dos Chingones - Modificar - ";
+        String nombre = "Dos Chingones - Edit - ";
         nombre += usuario.getNombre();
         model.addAttribute("title", nombre);
         return "/admin/modificarUsuario";
@@ -217,7 +217,7 @@ public class AdminController {
 
     @GetMapping("/listadoPedidos")
     public String listadoPedidos(Model model) {
-        String nombre = "Dos Chingones - Listado Pedidos";
+        String nombre = "Dos Chingones - Admin";
         model.addAttribute("title", nombre);
 
         var listaPedidos = facturaService.getFacturasActivas();

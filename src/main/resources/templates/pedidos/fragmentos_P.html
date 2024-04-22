@@ -10,17 +10,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>Plantilla</title>
     </head>
     <body>
-
+        
         <section th:fragment="listadoPedidos" id="items">
             <div class="container">
-                <h2>Tus pedidos activos</h2>
+                <h2>[[#{pedidos.activos}]]</h2>
                 <section class="h-100">
                     <div class="container py-2">
                         <div class="row d-flex justify-content-center my-4">
                             <div class="col-md-8">
                                 <div class="card mb-4">
                                     <div class="card-header py-3" th:if="${items != null or !items.empty}">
-                                        <span>Has hecho [[${items.size()}]] pedidos.</span>
+                                        <span>[[#{pedidos.realizados1}]] [[${items.size()}]] [[#{pedidos.realizados2}]]</span>
                                     </div>
                                     <div class="card-body"  style="background-color: #eee;">
                                         <div class="row" th:each="pedido : ${items}">
@@ -32,12 +32,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                                                 <div class="card-body p-4">
                                                                     <div class="d-flex justify-content-between align-items-center">
                                                                         <div class="d-flex flex-column">
-                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 1}">Tu orden se esta preparando.</span>
-                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 2}">Tu orden se esta entregando.</span>
-                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 3}">Tu orden ha llegado a la ubicacion deseada!</span>
-                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 4}">Tu orden ha sido cancelada.</span>
-                                                                            <span class="lead fw-normal" th:if="${pedido.estado >= 5 || pedido.estado ==0}">Tu orden ha tenido un problema, porfavor contactar el restaurante.</span>
-                                                                            <span class="text-muted small">Realizado el dia [[${#dates.format(pedido.fecha, 'dd-MM-yyyy')}]] </span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 1}">[[#{admin.pedidos.entrega1}]]</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 2}">[[#{admin.pedidos.entrega2}]]</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 3}">[[#{admin.pedidos.entrega3}]]</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 4}">[[#{admin.pedidos.entrega4}]]</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado >= 5 || pedido.estado ==0}">[[#{admin.pedidos.entrega5}]]</span>
+                                                                            <span class="text-muted small">[[#{admin.pedidos.fecha}]] [[${#dates.format(pedido.fecha, 'dd-MM-yyyy')}]] </span>
                                                                         </div>
                                                                         <div>
                                                                             <i class="fa-solid fa-kitchen-set h1" th:if="${pedido.estado == 1}"></i>
@@ -50,7 +50,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                                                                     <hr class="my-4"/>
                                                                     <div>
-                                                                        <h5>Tu orden consiste en: </h5>
+                                                                        <h5>[[#{pedidos.detalle.consiste}]] </h5>
 
                                                                         <section id="detalles" th:with="facturaDetalles=${detalles[pedido.idFactura]}">
                                                                             <div th:each="detalle : ${facturaDetalles}">
@@ -65,11 +65,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                                                                     <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
                                                                                         <!-- Data -->
                                                                                         <h4>[[${detalle.platillo.nombre}]]</h4>
-                                                                                        <h5>¿Tiene algún cambio? </h5>
-                                                                                        <h5 th:if="${!detalle.detalle.isEmpty}">Si</h5>
-                                                                                        <h5 th:if="${detalle.detalle.isEmpty}">No</h5>
-                                                                                        <h6>Precio unitario: ₡[[${detalle.platillo.precio}]]</h6>
-                                                                                        <h6>Cantidad: [[${detalle.cantidad}]]</h6>
+                                                                                        <h5>[[#{pedido.cambio}]]</h5>
+                                                                                        <h5 th:if="${!detalle.detalle.isEmpty}">[[#{si}]]</h5>
+                                                                                        <h5 th:if="${detalle.detalle.isEmpty}">[[#{no}]]</h5>
+                                                                                        <h6>[[#{pedido.precioU}]]: ₡[[${detalle.platillo.precio}]]</h6>
+                                                                                        <h6>[[#{pedido.cantidad}]]: [[${detalle.cantidad}]]</h6>
                                                                                         <!-- Data -->
                                                                                     </div>
                                                                                     <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
@@ -98,33 +98,34 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </section>
             </div>
         </section>
-        
+
         <section th:fragment="listadoPedidosT" id="itemsT">
             <div class="container">
-                <h2>Tus pedidos terminados</h2>
+                <h2>[[#{pedidos.finalizados}]]</h2>
                 <section class="h-100">
                     <div class="container py-2">
                         <div class="row d-flex justify-content-center my-4">
                             <div class="col-md-8">
-                                    <div class="card-header py-3" th:if="${itemsT != null or !itemsT.empty}">
-                                        <span>Has hecho [[${itemsT.size()}]] pedidos.</span>
+                                <div class="card mb-4">
+                                    <div class="card-header py-3" th:if="${items != null or !items.empty}">
+                                        <span>[[#{pedidos.realizados1}]] [[${itemsT.size()}]] [[#{pedidos.realizados2}]]</span>
                                     </div>
                                     <div class="card-body"  style="background-color: #eee;">
                                         <div class="row" th:each="pedido : ${itemsT}">
                                             <section>
                                                 <div class="container py-3">
-                                                    <div class="row d-flex justify-content-center align-itemsT-center">
+                                                    <div class="row d-flex justify-content-center align-items-center">
                                                         <div class="col">
                                                             <div class="card card-stepper" style="border-radius: 10px;">
                                                                 <div class="card-body p-4">
-                                                                    <div class="d-flex justify-content-between align-itemsT-center">
+                                                                    <div class="d-flex justify-content-between align-items-center">
                                                                         <div class="d-flex flex-column">
-                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 1}">Tu orden se esta preparando.</span>
-                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 2}">Tu orden se esta entregando.</span>
-                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 3}">Tu orden ha llegado a la ubicacion deseada!</span>
-                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 4}">Tu orden ha sido cancelada.</span>
-                                                                            <span class="lead fw-normal" th:if="${pedido.estado >= 5 || pedido.estado ==0}">Tu orden ha tenido un problema, porfavor contactar el restaurante.</span>
-                                                                            <span class="text-muted small">Realizado el dia [[${#dates.format(pedido.fecha, 'dd-MM-yyyy')}]] </span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 1}">[[#{admin.pedidos.entrega1}]]</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 2}">[[#{admin.pedidos.entrega2}]]</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 3}">[[#{admin.pedidos.entrega3}]]</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado == 4}">[[#{admin.pedidos.entrega4}]]</span>
+                                                                            <span class="lead fw-normal" th:if="${pedido.estado >= 5 || pedido.estado ==0}">[[#{admin.pedidos.entrega5}]]</span>
+                                                                            <span class="text-muted small">[[#{admin.pedidos.fecha}]] [[${#dates.format(pedido.fecha, 'dd-MM-yyyy')}]] </span>
                                                                         </div>
                                                                         <div>
                                                                             <i class="fa-solid fa-kitchen-set h1" th:if="${pedido.estado == 1}"></i>
@@ -137,9 +138,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                                                                     <hr class="my-4"/>
                                                                     <div>
-                                                                        <h5>Tu orden consiste en: </h5>
+                                                                        <h5>[[#{pedidos.detalle.consiste}]] </h5>
 
-                                                                        <section id="detallesT" th:with="facturaDetalles=${detallesT[pedido.idFactura]}">
+                                                                        <section id="detalles" th:with="facturaDetalles=${detalles[pedido.idFactura]}">
                                                                             <div th:each="detalle : ${facturaDetalles}">
                                                                                 <div class="row">
                                                                                     <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
@@ -152,11 +153,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                                                                     <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
                                                                                         <!-- Data -->
                                                                                         <h4>[[${detalle.platillo.nombre}]]</h4>
-                                                                                        <h5>¿Tiene algún cambio? </h5>
-                                                                                        <h5 th:if="${!detalle.detalle.isEmpty}">Si</h5>
-                                                                                        <h5 th:if="${detalle.detalle.isEmpty}">No</h5>
-                                                                                        <h6>Precio unitario: ₡[[${detalle.platillo.precio}]]</h6>
-                                                                                        <h6>Cantidad: [[${detalle.cantidad}]]</h6>
+                                                                                        <h5>[[#{pedido.cambio}]]</h5>
+                                                                                        <h5 th:if="${!detalle.detalle.isEmpty}">[[#{si}]]</h5>
+                                                                                        <h5 th:if="${detalle.detalle.isEmpty}">[[#{no}]]</h5>
+                                                                                        <h6>[[#{pedido.precioU}]]: ₡[[${detalle.platillo.precio}]]</h6>
+                                                                                        <h6>[[#{pedido.cantidad}]]: [[${detalle.cantidad}]]</h6>
                                                                                         <!-- Data -->
                                                                                     </div>
                                                                                     <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">

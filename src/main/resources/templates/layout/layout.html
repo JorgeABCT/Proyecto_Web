@@ -28,33 +28,33 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <img src="https://firebasestorage.googleapis.com/v0/b/dos-chingones-b1e2a.appspot.com/o/Logo_DosChingones.png?alt=media&token=c8334e44-3703-42ab-921a-b929c45e916a" alt="Logo_DosChingones" class="mx-auto d-block" style="width: 50%; height: auto"/>
                 </a>
                 <ul class="nav col-10 col-md-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="/" class="nav-link px-2 link-dark conFocus">Inicio</a></li>
+                    <li><a href="/" class="nav-link px-2 link-dark conFocus">[[#{layout.inicio}]]</a></li>
                     <li class="nav-item dropdown link-dark">
                         <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Menu
+                            [[#{layout.menu}]]
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" th:href="@{/menu_regular}">Menu Regular</a></li>
-                            <li><a class="dropdown-item" th:href="@{/menu_vegano}">Menu Vegano</a></li>
-                            <li><a class="dropdown-item" th:href="@{/bebidas}">Bebidas</a></li>
+                            <li><a class="dropdown-item" th:href="@{/menu_regular}">[[#{layout.menuR}]]</a></li>
+                            <li><a class="dropdown-item" th:href="@{/menu_vegano}">[[#{layout.menuV}]]</a></li>
+                            <li><a class="dropdown-item" th:href="@{/bebidas}">[[#{layout.bebidas}]]</a></li>
                         </ul>
                     </li>
-                    <li><a th:href="@{/ofertas}" class="nav-link px-2 link-dark">Ofertas</a></li>
-                    <li sec:authorize='isAuthenticated()'><a th:href="@{/pedidos/listado}" class="nav-link px-2 link-dark">Mis Pedidos</a></li>
-                    <li><a th:href="@{/nosotros}" class="nav-link px-2 link-dark">Sobre Nosotros</a></li>
+                    <li><a th:href="@{/ofertas}" class="nav-link px-2 link-dark">[[#{layout.ofertas}]]</a></li>
+                    <li sec:authorize='isAuthenticated()'><a th:href="@{/pedidos/listado}" class="nav-link px-2 link-dark">[[#{layout.pedidos}]]</a></li>
+                    <li><a th:href="@{/nosotros}" class="nav-link px-2 link-dark">[[#{layout.nosotros}]]</a></li>
                     <li class="nav-item dropdown link-dark" sec:authorize="hasAnyRole('ROLE_EMPLEADO', 'ROLE_ADMIN')">
                         <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Administracion
+                            [[#{layout.admin}]]
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" th:href="@{/admin/listadoUsuarios}">Ver Usuarios</a></li>
-                            <li><a class="dropdown-item" th:href="@{/admin/listadoCategorias}">Ver Categorias</a></li>
-                            <li><a class="dropdown-item" th:href="@{/admin/listadoPlatillos}">Ver Platillos</a></li>
-                            <li><a class="dropdown-item" th:href="@{/admin/listadoPedidos}">Ver Pedidos</a></li>
+                            <li><a class="dropdown-item" th:href="@{/admin/listadoUsuarios}">[[#{layout.usuarios}]]</a></li>
+                            <li><a class="dropdown-item" th:href="@{/admin/listadoCategorias}">[[#{layout.categorias}]]</a></li>
+                            <li><a class="dropdown-item" th:href="@{/admin/listadoPlatillos}">[[#{layout.platillos}]]</a></li>
+                            <li><a class="dropdown-item" th:href="@{/admin/listadoPedidos}">[[#{layout.pedidos}]]</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown link-dark">
-                        <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Idioma</a>
+                        <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">[[#{idioma}]]</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item"  th:href="@{/(lang=es)}">ES</a></li>
                             <li><a class="dropdown-item" th:href="@{/(lang=en)}">EN</a></li>
@@ -62,21 +62,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     </li>
                 </ul>
                 <div class="col-md-3 text-end" sec:authorize='!isAuthenticated()'>
-                    <a th:href="@{/login}"><button type="button" class="btn btn-outline-danger me-2">Entrar</button></a>
-                    <a th:href="@{/cuenta/nuevo}"><button type="button" class="btn btn-danger">Crear Cuenta</button></a>
+                    <a th:href="@{/login}"><button type="button" class="btn btn-outline-danger me-2">[[#{layout.iniciar}]]</button></a>
+                    <a th:href="@{/cuenta/nuevo}"><button type="button" class="btn btn-danger">[[#{layout.crear}]]</button></a>
                 </div>
                 <div class="col-md-1 text-center" sec:authorize='isAuthenticated()'>
-                    <a class="text-decoration-none text-danger" th:href="@{/carrito/listado}"><i class="bi bi-cart-fill"></i> Carrito</a>
+                    <a class="text-decoration-none text-danger" th:href="@{/carrito/listado}"><i class="bi bi-cart-fill"></i> [[#{layout.carrito}]]</a>
                 </div>
                 <div class="col-md-1 text-center" sec:authorize='isAuthenticated()'>
                     <a class="nav-link dropdown-toggle link-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-person-circle h2"></i>
-                        <span sec:authentication='name'>Jhon</span>
+                        <span sec:authentication='name'>Yorsh</span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/cuenta/modifica}">Modificar Cuenta</a></li>
+                        <li><a class="dropdown-item" th:href="@{/cuenta/modifica}">[[#{layout.modificar}]]</a></li>
                         <form method='post' th:action='@{/logout}'>
-                            <li><a class="dropdown-item"><button class="shadow-none decoration-none" type="submit" style="border: none; padding: 0; background: none">Cerrar cuenta</button></a></li>
+                            <li><a class="dropdown-item"><button class="shadow-none decoration-none" type="submit" style="border: none; padding: 0; background: none">[[#{layout.cerrar}]]</button></a></li>
                         </form>
                     </ul>
                 </div>
@@ -94,9 +94,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     <i class="fas fa-pepper-hot me-3"></i>Dos Chingones
                                 </h6>
                                 <p>
-                                    Restaurante Mexicano donde fusionamos tradición y creatividad para ofrecerte una experiencia culinaria auténtica
-                                    y emocionante. Desde los vibrantes sabores de nuestras salsas caseras hasta
-                                    la cuidadosa selección de ingredientes frescos.
+                                    [[#{layout.descripcion}]]
                                 </p>
                             </div>
                             <!-- Columna de la derecha -->
@@ -106,15 +104,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                     Legal
                                 </h6>
                                 <p>
-                                    <a href="#!" class="text-reset text-decoration-none">Términos y condiciones</a>
+                                    <a href="#!" class="text-reset text-decoration-none">[[#{layout.terminos}]]</a>
                                 </p>
                                 <p>
-                                    <a href="#!" class="text-reset text-decoration-none">Políticas de privacidad</a>
+                                    <a href="#!" class="text-reset text-decoration-none">[[#{layout.politica}]]</a>
                                 </p>
                             </div>
                             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                                 <!-- Links -->
-                                <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
+                                <h6 class="text-uppercase fw-bold mb-4">[[#{layout.contacto}]]</h6>
                                 <a href="https://www.facebook.com/2chingones/" class="mb-3 text-decoration-none link-dark" target=”_blank”>
                                     <p><i class="fab fa-facebook-f"></i> Facebook </p>
                                 </a>
@@ -123,12 +121,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                                 </a>
                                 <a href="https://api.whatsapp.com/send?phone=%2B50672930820&data=ARC6JZ0exqwdvvHXbrOZWSdPr-z6eLBXhgQaZjjnBtumwQMF2qdAxZgv5gEy_Sah3I2oSbQuNmd6cufFEJTe2L4Q98n73dhOBm5EGoGE9l3uY7GbKPrJM7mw2JPau8zq19GrpkLKsPiUOpTboCJKC1kVqw" 
                                    class="mb-3 text-decoration-none link-dark" target=”_blank”>
-                                    <p><i class="fab fa-whatsapp"></i> Contactenos </p>
+                                    <p><i class="fab fa-whatsapp"></i> [[#{layout.contactenos}]] </p>
                                 </a>
                                 <a href="https://maps.app.goo.gl/yA5XDMmnaPrUzmYu9" class="mb-3 text-decoration-none link-dark" target=”_blank”>
                                     <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                                             <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
-                                        </svg> Dirección </p>
+                                        </svg> [[#{layout.direccion}]] </p>
                                 </a>
                             </div>
                             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">

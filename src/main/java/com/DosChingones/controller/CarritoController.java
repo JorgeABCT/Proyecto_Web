@@ -59,7 +59,7 @@ public class CarritoController {
         }
         model.addAttribute("carritoTotal", carritoTotalVenta);
         model.addAttribute("listaTotal", totalCarrito);
-        String nombre = "Dos Chingones - Carrito";
+        String nombre = "Dos Chingones";
         model.addAttribute("title", nombre);
         return "/carrito/listadoCarrito";
     }
@@ -152,7 +152,7 @@ public class CarritoController {
 
     @GetMapping("/compra_satisfactoria")
     public String gracias(Model model) {
-        String nombre = "Dos Chingones - Compra Satisfactoria";
+        String nombre = "Dos Chingones";
         model.addAttribute("title", nombre);
         return "/carrito/ThxCompra";
     }

@@ -40,7 +40,7 @@ public class PedidosController {
 
     @GetMapping("/listado")
     public String verListado(Model model) {
-        String nombre = "Dos Chingones - Pedidos";
+        String nombre = "Dos Chingones";
         model.addAttribute("title", nombre);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

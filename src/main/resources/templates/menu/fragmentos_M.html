@@ -10,52 +10,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>Plantilla</title>
     </head>
     <body>
-        <section th:fragment="listadoPlatilloR" id="platillos">
-            <div class="container">
-                <div class="row row-cols-2" >
-                    <h2 class="inline">Menu Regular</h2>
-                    <div id="resultsBlock"></div></div>
-                <div class="row row-cols-3" 
-                     th:if="${platillos != null and !platillos.empty}">
-                    <div class="card" th:each="platillo : ${platillos}">
-                        <div class="card-body">
-                            <h5 class="card-title">[[${platillo.nombre}]]</h5>
-                            <figure>
-                                <img th:src="@{${platillo.rutaImagen}}" height="200"/>
-                                <figcaption>[[${platillo.precio}]]</figcaption>
-                            </figure>
-                            <p class="card-text">[[${platillo.descripcion}]]</p>                            
-                        </div>
-                    </div>
-                </div>
-                <div th:if="${platillos == null or platillos.empty}">
-                    No hay platillos disponibles en este momento</div>
-            </div>
-        </section>
-
-        <section th:fragment="listadoPlatilloV" id="platillos">
-            <div class="container">
-                <div class="row row-cols-2" >
-                    <h2 class="inline">Menu Vegano</h2>
-                    <div id="resultsBlock"></div></div>
-                <div class="row row-cols-3" 
-                     th:if="${platillos != null and !platillos.empty}">
-                    <div class="card" th:each="platillo : ${platillos}">
-                        <div class="card-body">
-                            <h5 class="card-title">[[${platillo.nombre}]]</h5>
-                            <figure>
-                                <img th:src="@{${platillo.rutaImagen}}" height="200"/>
-                                <figcaption>[[${platillo.precio}]]</figcaption>
-                            </figure>
-                            <p class="btn btn-danger">[[${platillo.descripcion}]]</p>                            
-                        </div>
-                    </div>
-                </div>
-                <div th:if="${platillos == null or platillos.empty}">
-                    No hay platillos disponibles en este momento</div>
-            </div>
-        </section>
-
         <section th:fragment="listadoPlatillos" id="platillos">
             <div class="container">
                 <div class="row row-cols-2" >
@@ -82,35 +36,208 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         </ul>
                         <div class="card-body text-center" sec:authorize='isAuthenticated()'>
                             <input type="hidden" name="id_platillo" id="idDelPlatillo" th:value="${platillo.id_platillo}"/>
-                            <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar al carrito</button>
-                            <div id="agregadoCarrito"></div>
+                            <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">[[#{boton.agregar}]]</button>
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Platillo añadido</h1>
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">[[#{modal.agregado}]]</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body d-flex justify-content-center">
-                                            <h3>¡Se agregó con éxito el platillo en el carrito!</h3>
+                                            <h3>[[#{modal.descripcion}]]</h3>
                                         </div>
                                         <div class="d-flex justify-content-center">
                                             <h2><i class="bi bi-cart-check-fill h1"></i></h2>
                                         </div>
                                         <div class="modal-footer d-flex justify-content-center">
-                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Seguir</button>
+                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">[[#{modal.boton}]]</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
-                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
+                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">[[#{boton.iniciar}]]</button></a>
                         </div>
                     </div>
                 </div>
                 <div th:if="${platillos == null or platillos.empty}">
-                    No hay platillos disponibles en este momento
+                    [[#{admin.platillos.vacio}]]
+                </div>
+            </div>
+        </section>
+        
+        <section th:fragment="listadoPlatillosR" id="platillos">
+            <div class="container">
+                <div class="row row-cols-2" >
+                    <h2 class="inline">[[#{layout.menuR}]]</h2>
+                </div>
+                <div id="agregadoCarrito"></div>
+                <div class="row row-cols-3" 
+                     th:if="${platillos != null and !platillos.empty}">
+                    <div class="card" style="width: 20rem; margin: 1rem" th:each="platillo : ${platillos}">
+                        <br/>
+                        <a th:href="@{/platillo/}+${platillo.id_platillo}">
+                            <div class="d-flex justify-content-center">
+                                <img th:src="@{${platillo.rutaImagen}}" height="200" width="326" class="rounded img-fluid"/>
+                            </div>
+                        </a>
+                        <div class="card-body">
+                            <a class="text-decoration-none text-black" th:href="@{/platillo/}+${platillo.id_platillo}">
+                                <h5 class="card-title">[[${platillo.nombre}]]</h5>
+                            </a>
+                            <p class="card-text text-truncate">[[${platillo.descripcion}]]</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><h2 class="text-center" style="">[[${platillo.precio}]]</h2></li>
+                        </ul>
+                        <div class="card-body text-center" sec:authorize='isAuthenticated()'>
+                            <input type="hidden" name="id_platillo" id="idDelPlatillo" th:value="${platillo.id_platillo}"/>
+                            <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">[[#{boton.agregar}]]</button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">[[#{modal.agregado}]]</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body d-flex justify-content-center">
+                                            <h3>[[#{modal.descripcion}]]</h3>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <h2><i class="bi bi-cart-check-fill h1"></i></h2>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center">
+                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">[[#{modal.boton}]]</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
+                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">[[#{boton.iniciar}]]</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${platillos == null or platillos.empty}">
+                    [[#{admin.platillos.vacio}]]
+                </div>
+            </div>
+        </section>
+        
+        <section th:fragment="listadoBebidas" id="platillos">
+            <div class="container">
+                <div class="row row-cols-2" >
+                    <h2 class="inline">[[#{layout.bebidas}]]</h2>
+                    <div id="agregadoCarrito"></div>
+                </div>
+                <div class="row row-cols-3" 
+                     th:if="${platillos != null and !platillos.empty}">
+                    <div class="card" style="width: 20rem; margin: 1rem" th:each="platillo : ${platillos}">
+                        <br/>
+                        <a th:href="@{/platillo/}+${platillo.id_platillo}">
+                            <div class="d-flex justify-content-center">
+                                <img th:src="@{${platillo.rutaImagen}}" height="200" width="326" class="rounded img-fluid"/>
+                            </div>
+                        </a>
+                        <div class="card-body">
+                            <a class="text-decoration-none text-black" th:href="@{/platillo/}+${platillo.id_platillo}">
+                                <h5 class="card-title">[[${platillo.nombre}]]</h5>
+                            </a>
+                            <p class="card-text text-truncate">[[${platillo.descripcion}]]</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><h2 class="text-center" style="">[[${platillo.precio}]]</h2></li>
+                        </ul>
+                        <div class="card-body text-center" sec:authorize='isAuthenticated()'>
+                            <input type="hidden" name="id_platillo" id="idDelPlatillo" th:value="${platillo.id_platillo}"/>
+                            <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">[[#{boton.agregar}]]</button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">[[#{modal.agregado}]]</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body d-flex justify-content-center">
+                                            <h3>[[#{modal.descripcion}]]</h3>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <h2><i class="bi bi-cart-check-fill h1"></i></h2>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center">
+                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">[[#{modal.boton}]]</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
+                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">[[#{boton.iniciar}]]</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${platillos == null or platillos.empty}">
+                    [[#{admin.platillos.vacio}]]
+                </div>
+            </div>
+        </section>
+        
+        <section th:fragment="listadoPlatillosV" id="platillos">
+            <div class="container">
+                <div class="row row-cols-2" >
+                    <h2 class="inline">[[#{layout.menuV}]]</h2>
+                    <div id="agregadoCarrito"></div>
+                </div>
+                <div class="row row-cols-3" 
+                     th:if="${platillos != null and !platillos.empty}">
+                    <div class="card" style="width: 20rem; margin: 1rem" th:each="platillo : ${platillos}">
+                        <br/>
+                        <a th:href="@{/platillo/}+${platillo.id_platillo}">
+                            <div class="d-flex justify-content-center">
+                                <img th:src="@{${platillo.rutaImagen}}" height="200" width="326" class="rounded img-fluid"/>
+                            </div>
+                        </a>
+                        <div class="card-body">
+                            <a class="text-decoration-none text-black" th:href="@{/platillo/}+${platillo.id_platillo}">
+                                <h5 class="card-title">[[${platillo.nombre}]]</h5>
+                            </a>
+                            <p class="card-text text-truncate">[[${platillo.descripcion}]]</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><h2 class="text-center" style="">[[${platillo.precio}]]</h2></li>
+                        </ul>
+                        <div class="card-body text-center" sec:authorize='isAuthenticated()'>
+                            <input type="hidden" name="id_platillo" id="idDelPlatillo" th:value="${platillo.id_platillo}"/>
+                            <button class="btn btn-danger" th:onclick="addCartListado([[${platillo.id_platillo}]])" data-bs-toggle="modal" data-bs-target="#exampleModal">[[#{boton.agregar}]]</button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">[[#{modal.agregado}]]</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body d-flex justify-content-center">
+                                            <h3>[[#{modal.descripcion}]]</h3>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <h2><i class="bi bi-cart-check-fill h1"></i></h2>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center">
+                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">[[#{modal.boton}]]</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
+                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">[[#{boton.iniciar}]]</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${platillos == null or platillos.empty}">
+                    [[#{admin.platillos.vacio}]]
                 </div>
             </div>
         </section>
@@ -118,105 +245,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <section th:fragment="overlayAgregadoCarrito">
             <div>
                 <!-- Si se metio -->
-            </div>
-        </section>
-
-        <section th:fragment="listadoBebida" id="bebidas">
-            <div class="container">
-                <div class="row row-cols-2" >
-                    <h2 class="inline">Bebidas</h2>
-                    <div id="resultsBlock"></div>
-                </div>
-                <div class="row row-cols-3" 
-                     th:if="${bebidas != null and !bebidas.empty}">
-                    <div class="card" style="width: 22rem; margin: 1rem" th:each="bebida : ${bebidas}">
-                        <br/>
-                        <a th:href="@{/bebida/}+${bebida.id_bebida}">
-                            <img th:src="@{${bebida.rutaImagen}}" height="200" width="326" class="rounded"/>
-                        </a>
-                        <div class="card-body">
-                            <a class="text-decoration-none text-black" th:href="@{/bebida/}+${bebida.id_bebida}">
-                                <h5 class="card-title">[[${bebida.nombre}]]</h5>
-                            </a>
-                            <p class="card-text">[[${bebida.descripcion}]]</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><h2 class="text-center" style="">[[${bebida.precio}]]</h2></li>
-                        </ul>
-                        <div class="card-body text-center" sec:authorize='isAuthenticated()'>
-                            <a href="#" class="btn btn-danger">Agregar al carrito</a>
-                        </div>
-                        <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
-                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
-                        </div>
-                    </div>
-                </div>
-                <div th:if="${bebidas == null or bebidas.empty}">
-                    No hay bebidas disponibles en este momento
-                </div>
-            </div>
-        </section>
-
-        <section th:fragment="listadoBebidas" id="platillos">
-            <div class="container">
-                <div class="row row-cols-2" >
-                    <h2 class="inline">[[${MenuNombre}]]</h2>
-                    <div id="resultsBlock"></div>
-                </div>
-                <div class="row row-cols-3" 
-                     th:if="${platillos != null and !platillos.empty}">
-                    <div class="card" style="width: 22rem; margin: 1rem" th:each="platillo : ${platillos}">
-                        <br/>
-                        <a th:href="@{/platillo/}+${platillo.id_platillo}">
-                            <img th:src="@{${platillo.rutaImagen}}" height="200" width="326" class="rounded"/>
-                        </a>
-                        <div class="card-body">
-                            <a class="text-decoration-none text-black" th:href="@{/platillo/}+${platillo.id_platillo}">
-                                <h5 class="card-title">[[${platillo.nombre}]]</h5>
-                            </a>
-                            <p class="card-text">[[${platillo.descripcion}]]</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><h2 class="text-center" style="">[[${platillo.precio}]]</h2></li>
-                        </ul>
-                        <div class="card-body text-center" sec:authorize='isAuthenticated()'>
-                            <a href="#" class="btn btn-danger">Agregar al carrito</a>
-                        </div>
-                        <div class="card-body text-center" sec:authorize='!isAuthenticated()'>
-                            <a th:href="@{/login}"><button type="button" class="btn btn-danger me-2 btn-lg">Iniciar Sesión para Comprar</button></a>
-                        </div>
-                    </div>
-                </div>
-                <div th:if="${platillos == null or platillos.empty}">
-                    No hay platillos disponibles en este momento
-                </div>
-            </div>
-        </section>
-
-        <section th:fragment="Bebidas" id="bebidas">
-            <div class="container">
-                <div class="row row-cols-2" >
-                    <h2 class="inline">Bebidas Disponibles</h2>
-                    <div id="resultsBlock"></div></div>
-                <div class="row row-cols-3" 
-                     th:if="${bebidas != null and !bebidas.empty}">
-                    <div class="card" style="width: 22rem; margin: 1rem" th:each="bebida : ${bebidas}">
-                        <br/>
-                        <img th:src="@{${bebida.rutaImagen}}" height="200" class="rounded"/>
-                        <div class="card-body">
-                            <h5 class="card-title">[[${bebida.nombre}]]</h5>
-                            <p class="card-text">[[${bebida.descripcion}]]</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><h2 class="text-center" style="">[[${bebida.precio}]]</h2></li>
-                        </ul>
-                        <div class="card-body text-center">
-                            <a href="#" class="btn btn-danger">Agregar al carrito</a>
-                        </div>
-                    </div>
-                </div>
-                <div th:if="${bebidas == null or bebidas.empty}">
-                    No hay platillos disponibles en este momento</div>
             </div>
         </section>
     </body>
