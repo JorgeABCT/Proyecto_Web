@@ -67,6 +67,8 @@ public class AdminController {
     @Autowired
     private FirebaseStorageService firebaseService;
 
+    
+    //Hola prueba
     @GetMapping("/listadoCategorias")
     private String listadoCategorias(Model model, Categoria categoria) {
         var categorias = categoriaService.getCategorias(false);
